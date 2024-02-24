@@ -1,0 +1,395 @@
+openapi: 3.0.3
+info:
+  title: "projet nodejs"
+  description: "appli gestion transport"
+  contact:
+    email: apiteam@swagger.io
+  version: 1.0.11
+ 
+tags:
+  - name: login
+    description: Everything about your login
+  - name: User
+    description: Everything about your user
+  - name: Gare
+    description: Everything about your gare
+  - name: Train
+    description: Everything about your train
+
+    
+paths:
+  /login:
+    post:
+      tags:
+        - "login"
+      description: ""
+      operationId: "login"
+      responses: 
+        "200": 
+          description: "connexion réussie"
+        "400": 
+          description: "Veuillez fournir un nom d'utilisateur et un mot de passe ou Mot de passe incorrect ou L'utilisateur souhaité n'existe pas"
+        "500": 
+          description: "erreur serveur"
+  
+  /createUser:
+    post:
+      tags:
+        - "User"
+      requestBody:
+        description: Create a user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      description: "creation utilisateur"
+      operationId: "createUser"
+      responses: 
+        "201": 
+          description: "utilisateur crée"
+        "409":
+          description: "l'email est deja pris ou le pseudo est deja pris"
+        "404": 
+          description: "Vous avez un problème avec un de vos attributs. Veuillez verifier que vous avez bien un email et que le role est bien parmis les roles proposés"
+        "500": 
+          description: "erreur serveur"
+          
+  /deleteUser/{id}:
+    delete:
+      tags:
+        - "User"
+      description: "supp un utilisateur"
+      operationId: "delUser"
+      parameters:
+      - name: id
+        in: "path"
+        schema:
+          type: integer
+        description: "l'id de l'utilisateur à supprimer"
+        required: true
+      responses: 
+        "200": 
+          description: "utilisateur supprimé"
+        "403": 
+          description: "Vous ne disposez pas des droits pour modifier cette personne"
+        "500": 
+          description: "erreur serveur"
+          
+  /readUser:
+    post:
+      tags:
+        - "User"
+      description: "lecture des utilisateurs"
+      operationId: "readUser"
+      responses: 
+        "201": 
+          description: "read reussie"
+        "403": 
+          description: "vous ne disposez pas d'un role pouvant executer cette action"
+        "500": 
+          description: "erreur serveur"
+          
+  /updateUser/{id}:
+    post:
+      tags:
+        - "User"
+      requestBody:
+        description: update a user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      description: "modification utilisateur"
+      operationId: "updateUser"
+      parameters:
+      - name: id
+        in: path
+        schema:
+          type: integer
+        description: "id updateuser"
+        required: true
+      responses: 
+        "200": 
+          description: "update OK"
+        "403": 
+          description: "Vous ne disposez pas des droits pour modifier cette personne"
+        "404":
+          description: "not found"
+        "500": 
+          description: "erreur serveur"
+          
+  /createTrain:
+    post:
+      tags:
+        - "Train"
+      requestBody:
+        description: Create a train
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Train'
+        required: true
+      description: "creation de trains"
+      operationId: "createTrain"
+      responses: 
+        "201": 
+          description: train
+        "403":
+          description: "Vous ne disposez pas des droits pour modifier cette personne ou Vous avez un problème avec un de vos attributs. Veuillez les verifier ou le train existe deja ou la date est depassée"
+        "500": 
+          description: "erreur serveur"
+          
+  /deleteTrain/{id}:
+    delete:
+      tags:
+        - "Train"
+      description: "supp un train"
+      operationId: "deleteTrain"
+      parameters:
+      - name: id
+        in: "path"
+        schema:
+          type: integer
+        description: "l'id du train à supprimer"
+        required: true
+      responses: 
+        "201": 
+          description: "connexion réussie"
+        "403": 
+          description: "Vous ne disposez pas des droits pour modifier cette personne"
+        "500": 
+          description: "erreur serveur"
+          
+  /readTrain:
+    post:
+      tags:
+        - "Train"
+      description: "lecture des trains"
+      operationId: "readTrain"
+      responses: 
+        "201": 
+          description: "connexion réussie"
+        "500": 
+          description: "erreur serveur"
+          
+  /readTrain/{limit}:
+    post:
+      tags:
+        - "Train"
+      description: "lecture des trains"
+      parameters:
+      - name: limit
+        in: "path"
+        schema:
+          type: integer
+        description: "limite souhaitée"
+        required: true
+      responses: 
+        "201": 
+          description: "connexion réussie"
+        "500": 
+          description: "erreur serveur"
+          
+  /updateTrain/{id}:
+    post:
+      tags:
+        - "Train"
+      requestBody:
+        description: update a train
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Train'
+        required: true
+      description: "modification train"
+      operationId: "updateTrain"
+      parameters:
+      - name: id
+        in: path
+        schema:
+          type: integer
+        description: "id updateTrain"
+        required: true
+      responses: 
+        "201": 
+          description: "connexion réussie"
+        "403":
+          description: "Vous ne disposez pas des droits pour modifier cette personne"
+        "500": 
+          description: "erreur serveur"
+          
+  /createGare:
+    post:
+      tags:
+        - "Gare"
+      requestBody:
+        description: Create a gare
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Gare'
+        required: true
+      description: "creation de gares"
+      operationId: "createGare"
+      responses: 
+        "201": 
+          description: gare
+        "403":
+          description: "Vous avez un problème avec un de vos attributs. Veuillez les verifier ou la gare existe deja"
+        "500": 
+          description: "erreur serveur"
+          
+  /deleteGare/{id}:
+    delete:
+      tags:
+        - "Gare"
+      description: "supp un gare"
+      operationId: "deleteGare"
+      parameters:
+      - name: id
+        in: "path"
+        schema:
+          type: integer
+        description: "l'id de la gare à supprimer"
+        required: true
+      responses: 
+        "201": 
+          description: "connexion réussie"
+        "403": 
+          description: ""
+        "500": 
+          description: "erreur serveur"
+          
+  /readGare:
+    post:
+      tags:
+        - "Gare"
+      description: "lecture des gares"
+      operationId: "readGare"
+      responses: 
+        "201": 
+          description: "connexion réussie"
+        "500": 
+          description: "erreur serveur"
+          
+  /readGareSorted:
+    post:
+      tags:
+        - "Gare"
+      description: "lecture triée des gare"
+      responses: 
+        "201": 
+          description: "connexion réussie"
+        "500": 
+          description: "erreur serveur"
+          
+  /updateGare/{id}:
+    post:
+      tags:
+        - "Gare"
+      requestBody:
+        description: update des gares
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Gare'
+        required: true
+      description: "modification gare"
+      operationId: "updateGare"
+      parameters:
+      - name: id
+        in: path
+        schema:
+          type: integer
+        description: "id updateGare"
+        required: true
+      responses: 
+        "201": 
+          description: "connexion réussie"
+        "403":
+          description: ""
+        "500": 
+          description: "erreur serveur"
+
+components:
+  schemas:
+    Gare:
+      required:
+        - namegare
+        - open_hour
+        - close_hour
+        - image
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 
+        namegare:
+          type: string
+          example: "Tours37"
+        open_hour:
+          type: string
+          example: "6h"
+          description: "ouverture de la gare"
+        close_hour: 
+          type: string
+          example: "22h"
+          description: "fermeture de la gare"
+        image:
+          type: string
+          description: "image base 64"
+    Train:
+      required:
+        - nametrain
+        - start_station
+        - end_station
+        - time_of_departure
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 
+        nametrain:
+          type: string
+          example: "train37"
+          description: "nom du train"
+        start_station:
+          type: string
+          example: "station 1"
+          description: "station depart du train"
+        end_station: 
+          type: string
+          example: "station 2"
+          description: "station fin du trajet"
+        time_of_departure:
+          type: string
+          example: "8h"
+          description: "heure de depart"
+    User:
+      required:
+        - email
+        - pseudo
+        - password
+        - role
+      type: object
+      properties:
+        id:
+          type: integer
+          example:
+        pseudo:
+          type: string
+          example: "toto37"
+        email:
+          type: string
+          example: "toto@gmail.com"
+          description: "mail de l'etudiant"
+        password: 
+          type: string
+          example: "toto37"
+          description: "mdp de l'etudiant"
+        role:
+          type: string
+          example: "admin / user / employee"
+          description: ""
