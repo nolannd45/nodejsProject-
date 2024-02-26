@@ -86,15 +86,21 @@ export async function updateHotel(req, res){
     picture_list: yup.string(),
   });
   let check = await schema.isValid(req.body)
+  
     try {
-      const { name, location, description, picture_list } = req.body;
-      const updatedHotel = await Hotel.findByIdAndUpdate(req.params.id, {
-        name,
-        location,
-        description,
-        picture_list,
-      });
-      res.status(200).send(updatedHotel);
+      if (check){
+        const { name, location, description, picture_list } = req.body;
+        const updatedHotel = await Hotel.findByIdAndUpdate(req.params.id, {
+          name,
+          location,
+          description,
+          picture_list,
+        });
+        res.status(200).send(updatedHotel);
+      }
+      else{
+        res.status(400).send('Vous avez un problème avec un de vos attributs. Veuillez les verifier');
+      }
     } catch (error) {
       if (error.kind && error.kind === "ObjectId") {
         res.sendStatus(404);
