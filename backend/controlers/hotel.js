@@ -3,24 +3,22 @@ import Ticket from "../models/ticket.js";
 import * as yup from 'yup';
 
 export async function createHotel(req, res) {
+  const { name, location, description, picture_list } = req.body;
   if (req.user.role == "admin"){
-    const { namehotel, open_hour, close_hour, image } = req.body;
     const schema = yup.object().shape({
-      namehotel: yup.string().required(),
-      open_hour: yup.string().required(),
-      close_hour: yup.string().required(),
-      image: yup.string().required(),
+      name: yup.string().required(),
+      location: yup.string().required(),
+      description: yup.string().required(),
+      picture_list: yup.array().required(),
     });
     let check = await schema.isValid(req.body)
 
-  
-    const checkIfExistName = await Hotel.findOne({ namehotel });
+    const checkIfExistName = await Hotel.findOne({ name });
 
     if (!checkIfExistName){
       try {
         if (check){
-        const { namehotel, open_hour, close_hour, image } = req.body;
-        const newHotel = new Hotel({ namehotel, open_hour, close_hour, image });
+        const newHotel = new Hotel({ name, location, description, picture_list });
         const savedHotel = await newHotel.save();
         res.status(201).send(savedHotel);
         }
@@ -31,7 +29,7 @@ export async function createHotel(req, res) {
         console.log(error);
         res.sendStatus(500);
       }
-    } else {res.status(409).send('la hotel existe deja')};
+    } else {res.status(409).send('l hotel existe deja')};
   }else{
     res.status(403).send('Vous ne disposez pas des droits pour modifier cette personne');
   }
@@ -44,8 +42,7 @@ export async function delHotel(req, res){
         res.sendStatus(404);
         return;
       }
-      await Ticket.find( { "end_station": removed.namehotel } ).deleteMany();
-      await Ticket.find( { "start_station": removed.namehotel } ).deleteMany();
+      await Ticket.find( { "reservation": removed.name } ).deleteMany();
       res.status(200).send(removed);
     } catch (error) {
       if (error.kind && error.kind === "ObjectId") {
@@ -83,19 +80,19 @@ export async function readHotelId(req, res){
 
 export async function updateHotel(req, res){
   const schema = yup.object().shape({
-    namehotel: yup.string(),
-    open_hour: yup.string(),
-    close_hour: yup.string(),
-    image: yup.string(),
+    name: yup.string(),
+    location: yup.string(),
+    description: yup.string(),
+    picture_list: yup.string(),
   });
   let check = await schema.isValid(req.body)
     try {
-      const { namehotel, open_hour, close_hour, image } = req.body;
+      const { name, location, description, picture_list } = req.body;
       const updatedHotel = await Hotel.findByIdAndUpdate(req.params.id, {
-        namehotel,
-        open_hour,
-        close_hour,
-        image,
+        name,
+        location,
+        description,
+        picture_list,
       });
       res.status(200).send(updatedHotel);
     } catch (error) {
@@ -109,7 +106,7 @@ export async function updateHotel(req, res){
 
 export async function readHotelSorted (req, res){
   try {
-    const hotels = await Hotel.find().sort({namehotel : 1});
+    const hotels = await Hotel.find().sort({name : 1});
     res.status(201).send(hotels);
   } catch (error) {
     console.log(error);
