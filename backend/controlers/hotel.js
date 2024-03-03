@@ -83,7 +83,7 @@ export async function updateHotel(req, res){
     name: yup.string(),
     location: yup.string(),
     description: yup.string(),
-    picture_list: yup.string(),
+    picture_list: yup.array().required(),
   });
   let check = await schema.isValid(req.body)
   

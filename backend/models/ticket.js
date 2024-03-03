@@ -3,13 +3,10 @@ import { bool } from "yup";
 
 const ticketSchema = new Schema(
   {
-    idTrain: String,
     idUser: String,
-    nametrain: String,
-    start_station: String,
-    end_station: String,
-    time_of_departure: Date,
-    use: Boolean
+    idHotel: String,
+    dateStart: Date,
+    dateEnd: Date,
   },
   { timestamps: true }
 );
