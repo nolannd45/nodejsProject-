@@ -1,6 +1,8 @@
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import express from 'express';
+import cors from 'cors';
+
 
 import {connect, disconnect} from './utils/mongo.js';
 
@@ -15,11 +17,14 @@ connect()
 
 const app = express()
 
+app.use(cors({
+  origin: '*'
+}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.listen(3000, () => {
-  console.log('API listening on port 3000!')
+app.listen(3001, () => {
+  console.log('API listening on port 3001!')
 })
 
 app.post("/login", login);

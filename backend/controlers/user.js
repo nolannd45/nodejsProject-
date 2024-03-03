@@ -6,14 +6,13 @@ const createUser = async (req, res) => {
     const schema = yup.object().shape({
       email: yup.string().email().required(),
       pseudo: yup.string().required(),
-      password: yup.string().required(),
-      role: yup.string().matches(/(^user$)/),
+      password: yup.string().required()
     });
     let check = await schema.isValid(req.body)
     
     try {
       if (check){
-        var { email, pseudo, password, role } = req.body;
+        var { email, pseudo, password } = req.body;
         role = "user"
         const checkIfExistPseudo = await User.findOne({ pseudo });
         const checkIfExistMail = await User.findOne({ email });
@@ -82,6 +81,19 @@ const createUser = async (req, res) => {
     }
   };
 
+  const readById = async (req, res) => {
+    try {
+      const users = await User.findById(req.params.id);
+      if (users){
+        res.status(201).send(users);
+      }else {res.status(409).send('l utilisateur n\'existe pas ou plus.')}
+      
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+    }
+  };
+
 
 
 const updateUser = async (req, res) => {
@@ -127,4 +139,4 @@ const updateUser = async (req, res) => {
   }
 };
   
-  export {createUser, delUser, readUser, updateUser};
+  export {createUser, delUser, readUser, updateUser, readById};

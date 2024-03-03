@@ -14,40 +14,46 @@ const listTicket = async (req, res) => {
 
   export async function createTicket(req, res) {
     const { nameHotel, dateStart, dateEnd } = req.body;
-      const schema = yup.object().shape({
+    var today = new Date()
+    var tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const schema = yup.object().shape({
         nameHotel: yup.string().required("Le nom de l'hotel est obligatoire"),
-        dateStart: yup.date().required("Une date de debut pour votre reservation est obligatoire"),
-        dateEnd: yup.date().required("Une date de fin pour votre reservation est obligatoire"),
-      });
-      let check = await schema.isValid(req.body)
-  
-      const checkIfExist = await Hotel.findOne({ name: nameHotel });
-      const idUser = req.user.id
-  
-      if (checkIfExist){
+        dateStart: yup.date().min(today,`la date requise est celle d'aujourd'hui : ${today}`).required("Une date de debut pour votre reservation est obligatoire"),
+        dateEnd: yup.date().min(tomorrow,`il faut au moins une nuit pour reserver une chambre`).required("Une date de fin pour votre reservation est obligatoire"),
+    });
+    try {
+        await schema.validate(req.body, { abortEarly: false }); // Permet de retourner toutes les erreurs plutôt que d'arrêter après la première
+    } catch (error) {
+        // Capturer l'erreur spécifique ici et la renvoyer comme réponse
+        return res.status(400).send(error.errors.join(', '));
+    }
+
+    const checkIfExist = await Hotel.findOne({ name: nameHotel });
+    const idUser = req.user.id
+    var today = new Date()
+
+    if (checkIfExist) {
         try {
-          if (check){            
             var idHotel = checkIfExist.id
             const checkIfReserv = await Ticket.findOne({ id: idHotel, dateStart: dateStart, dateEnd: dateEnd });
             console.log(checkIfReserv)
-            if(!checkIfReserv) {
-              const newTicket = new Ticket({ idHotel,idUser, dateStart, dateEnd });
-              const savedTicket = await newTicket.save();
-              res.status(201).send(savedTicket);
-            }else{
-              res.status(400).send('La chambre est déjà reservé');
+            if (!checkIfReserv) {
+                const newTicket = new Ticket({ idHotel, idUser, dateStart, dateEnd });
+                const savedTicket = await newTicket.save();
+                return res.status(201).send(savedTicket);
+            } else {
+                return res.status(400).send('La chambre est déjà reservé');
             }
-            
-          }
-          else{
-            res.status(400).send('Vous avez un problème avec un de vos attributs. Veuillez les verifier');
-          }
         } catch (error) {
-          console.log(error);
-          res.sendStatus(500);
+            console.log(error);
+            return res.sendStatus(500);
         }
-      } else {res.status(409).send("l'hotel n'existe pas ou la chambre est déjà reservé")};
-  };
+    } else {
+        return res.status(409).send("l'hotel n'existe pas ou la chambre est déjà reservé");
+    };
+};
 
 const delTicket = async (req, res) => {
     try {

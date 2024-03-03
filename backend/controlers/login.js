@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const login = async (req, res) => {
+  console.log("ee")
   try {
     const { pseudo, password } = req.body;
     // Valider les données d'entrée
