@@ -3,24 +3,24 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const login = async (req, res) => {
-  console.log("ee")
+
   try {
     const { pseudo, password } = req.body;
     // Valider les données d'entrée
     if (!pseudo || !password) {
-      return res.status(400).send('Veuillez fournir un nom d\'utilisateur et un mot de passe');
+      return res.status(404).send('Veuillez fournir un nom d\'utilisateur et un mot de passe');
     }
 
     // Vérifier les informations d'identification de l'utilisateur dans la base de données
     const user = await User.findOne({ pseudo });
     if (!user) {
-      return res.status(400).send('L\'utilisateur souhaité n\'existe pas');
+      return res.status(404).send('L\'utilisateur souhaité n\'existe pas');
     }
 
     // Vérifier le mot de passe
     const isPasswordCorrect = bcrypt.compareSync(password, user.password);
     if (!isPasswordCorrect) {
-      return res.status(400).send('Mot de passe incorrect');
+      return res.status(404).send('Mot de passe incorrect');
     }
 
     // Générer un jeton JWT
@@ -39,8 +39,13 @@ const login = async (req, res) => {
     
   } catch (error) {
     console.log(error);
-    res.sendStatus(500);
+    res.sendStatus(404);
   }
 };
 
-export default login;
+const logout = async (req, res) => {
+  res.clearCookie('token');
+  res.status(200).send('logout')
+};
+
+export {login,logout};

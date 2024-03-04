@@ -2,14 +2,18 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useAuth } from '../contexts/auth';
 
 const Header = () => {
     const [profileBtnValue, setProfileBtnValue] = useState('');
 
     console.log(profileBtnValue);
     const navigate = useNavigate();
-    const { signOut, authUser } = useAuth();
+
+    function deco(){
+        localStorage.clear()
+        window.location.reload(false);
+    
+      }
 
     useEffect(() => {
         try {
@@ -31,11 +35,10 @@ const Header = () => {
                 <Link to={'/'} className='hover:text-gray-400 duration-100'>Akkor Hotel ltd</Link>
             </div>
             <div className='text-xl '>
-                <Link to={'/hotels'} className='mx-2 hover:scale-105 hover:text-slate-400'>Top-hotels</Link>
                 <Link to={'/contact'} className='mx-2 hover:scale-105 hover:text-slate-400'>Contact</Link>
                 <select className='bg-black text-white font-semibold rounded-full p-3 cursor-pointer ' onChange={(e) => { setProfileBtnValue(e.target.value) }}>Profile
                     <option value="profile" className='cursor-pointer text-2xl'>Profile</option>
-                    <option value="logout" className='cursor-pointer text-2xl' onClick={signOut}>Logout</option>
+                    <option value="logout" className='cursor-pointer text-2xl' onClick={deco}>Logout</option>
                 </select>
 
 

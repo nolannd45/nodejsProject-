@@ -11,7 +11,8 @@ import routeUser from "./routes/routeUser.js";
 import routeHotel from "./routes/routeHotel.js";
 import routeTicket from "./routes/routeTicket.js";
 
-import login from "./controlers/login.js";
+import {login,logout} from "./controlers/login.js";
+
 // DB CONNECTION
 connect()
 
@@ -28,6 +29,7 @@ app.listen(3001, () => {
 })
 
 app.post("/login", login);
+app.post("/logout", logout);
 
 app.use("/user", routeUser);
 app.use("/hotel", routeHotel);
