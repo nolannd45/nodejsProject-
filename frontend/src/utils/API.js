@@ -77,14 +77,16 @@ export class API {
   }
 
   static async register(pseudo, email, password) {
+    console.log(pseudo + " " + email + " " + password)
     try{
       await axios.post(`${BASE_URL_USER}/create`, {
-        pseudo: pseudo.value,
-        email: email.value,
-        password: password.value,
+        email: email,
+        pseudo: pseudo,
+        password: password,
       });
     }catch(error){
-      return error.response.data.message;
+      console.log(error.response)
+      return error.response;
     }
     
   }

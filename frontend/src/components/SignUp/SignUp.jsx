@@ -3,82 +3,59 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FcGoogle } from "react-icons/fc";
-
-import { useAuth } from "../../contexts/auth";
-
-
+import { API } from "../../utils/API.js";
+import * as Yup from "yup";
+import {
+  Alert,
+  Box,
+  Checkbox,
+  FormControlLabel,
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+} from "@mui/material";
 
 const Signup = () => {
   const navigate = useNavigate();
 
-  const [fName, setfName] = useState("");
+  const [pseudo, setpseudo] = useState("");
   const [lName, setlName] = useState("");
-  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
 
-  const { setAuthUser } = useAuth();
-  const { authUser } = useAuth();
+  const [popup, setPopup] = useState();
 
-  // useEffect(() => {
-  //     if (authUser) {
-  //         if (authUser.displayName) {
-  //             if (authUser.displayName !== undefined) {
-  //                 navigate('/')
-  //             }
-  //         }
-  //         console.log("Signed IN");
-  //     }
-  //     // eslint-disable-next-line
-  // }, [authUser]);
+  const SignupSchema = Yup.object().shape({
+    pseudo: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("First name required"),
+    email: Yup.string()
+      .email("Email must be a valid email address")
+      .required("Email is required"),
+    password: Yup.string().required("Password is required"),
+  });
 
-  useEffect(() => {
-    if (authUser) {
-      navigate("/");
-      console.log("Signed IN");
+  function load(){
+    if (password === cPassword){
+      log(pseudo, email, password)
+    }else{
+      setPopup("les deux passwords ne sont pas les mêmes")
     }
-    // eslint-disable-next-line
-  }, [authUser]);
+    
+  }
 
-  const signupHandler = async () => {
-    setFullName(`${fName} ${lName}`);
-
-    // let fullName = `${fName} ${lName}`;
-    if (email.length < 5 || !fullName || password !== cPassword) return;
-
-    try {
-      const user = await createUserWithEmailAndPassword(auth, email, cPassword);
-
-      const success = await updateProfile(auth.currentUser, {
-        displayName: fullName,
-      });
-
-      if (success) {
-        setAuthUser({
-          userId: user.uid,
-          Email: user.email,
-          Name: fullName,
-        });
-        toast.success(`Signup successful`);
-        // toast.success(`Login successful`)
-      }
-    } catch (error) {
-      console.log("Error From signupHandler", error);
-      toast.error(`Signup Failed : ${error.message}`);
+  async function log(pseudo, email, password){
+    let result = await API.register(pseudo, email, password)
+    if (result){
+      setPopup(result.data)
+    }else{
+      navigate("/login");
+      navigate(0);
     }
-  };
-  
-
-
-  // if (authUser) {
-  //     if (authUser.displayName) {
-  //         if (authUser.displayName !== undefined) {
-  //             navigate('/')
-  //         }
-  //     }
-  //     console.log("Signed IN");
-  // }
+  }
 
   return (
     <>
@@ -96,36 +73,24 @@ const Signup = () => {
 
             {/* <!-- Right column container with form --> */}
             <div className="md:w-8/12 lg:ml-6 lg:w-5/12 text-white">
+            {popup ? <Alert severity="error">{popup}</Alert> : ""}
               <form onSubmit={(e) => e.preventDefault()}>
                 {/* <!-- Name input --> */}
                 <div className="relative mb-6" data-te-input-wrapper-init>
                   <div className="flex gap-2 ">
                     <div>
-                      <label className="" htmlFor="fname">
+                      <label className="" htmlFor="pseudo">
                         First Name
                       </label>
                       <input
                         className="bg-gray-200 mt-2 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-800 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 transition-all duration-200"
                         type="text"
-                        id="fName"
+                        id="pseudo"
                         placeholder="First Name"
                         required
                         minLength={2}
-                        value={fName}
-                        onChange={(e) => setfName(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <label className="" htmlFor="lName">
-                        Last Name
-                      </label>
-                      <input
-                        className="bg-gray-200 mt-2 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-800 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 transition-all duration-200"
-                        type="text"
-                        id="lname"
-                        placeholder="Last Name"
-                        value={lName}
-                        onChange={(e) => setlName(e.target.value)}
+                        value={pseudo}
+                        onChange={(e) => setpseudo(e.target.value)}
                       />
                     </div>
                   </div>
@@ -205,17 +170,10 @@ const Signup = () => {
                 {/* <!-- Submit button --> */}
                 <button
                   className="inline-block w-full rounded bg-blue-600 px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-blue-500 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-blue-500 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                  onClick={signupHandler}
+                  onClick={load}
                 >
                   Sign up
                 </button>
-
-                {/* <!-- Divider --> */}
-                <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-                  <p className="mx-4 mb-0 text-center font-semibold dark:text-neutral-200">
-                    OR
-                  </p>
-                </div>
                
             
               </form>

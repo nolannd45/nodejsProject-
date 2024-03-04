@@ -9,11 +9,13 @@ const createUser = async (req, res) => {
       password: yup.string().required()
     });
     let check = await schema.isValid(req.body)
-    
+    console.log(check)
+
     try {
       if (check){
         var { email, pseudo, password } = req.body;
-        role = "user"
+        
+        var role = "user"
         const checkIfExistPseudo = await User.findOne({ pseudo });
         const checkIfExistMail = await User.findOne({ email });
         
@@ -33,7 +35,7 @@ const createUser = async (req, res) => {
         
       }
       else{
-        res.status(404).send('Vous avez un problème avec un de vos attributs. Veuillez verifier que vous avez bien un email et que le role est bien parmis les roles proposés. Sachez');
+        res.status(404).send('Vous avez un problème avec un de vos attributs. Veuillez verifier que vous avez bien un email valide.');
       }
       
     } catch (error) {
