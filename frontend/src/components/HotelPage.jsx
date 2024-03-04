@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 // import { IoStar } from 'react-icons/io5';
 import { useParams } from 'react-router-dom';
-import AboutThePlace from './AboutThePlace';
+import Apropos from './Apropos';
 import HotelImages from './HotelImages';
 import Modal from './Modal';
 
@@ -14,18 +14,16 @@ const HotelPage = () => {
         const getData = async () => {
             const res = await fetch(url);
             const result = await res.json();
-            console.log(result);
+            // console.log(result);
             // setData([result])
             setData(result)
         }
         getData();
-        console.log("hotel", hotel)
-        console.log("data", data)
         // eslint-disable-next-line
     }, [])
     return (
         <div className='text-start'>
-            <h1 className="text-white text-2xl font-semibold mt-6">Hotel-{hotel.name}</h1>
+            <h1 className="text-white text-2xl font-semibold mt-6">Hotel-{data.name}</h1>
             <h2 className='text-purple-500 text-xl'>{data.location}</h2>
 
 
@@ -42,7 +40,7 @@ const HotelPage = () => {
 
             </div>
             <div className='my-6'>
-                <AboutThePlace data={data} />
+                <Apropos data={data} />
             </div>
            
             <div>

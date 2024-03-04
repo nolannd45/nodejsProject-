@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AboutThePlace = ({ data }) => {
+const Apropos = ({ data }) => {
 
     return (
         <>
@@ -10,4 +10,4 @@ const AboutThePlace = ({ data }) => {
     )
 }
 
-export default AboutThePlace;
+export default Apropos;
