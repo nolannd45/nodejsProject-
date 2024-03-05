@@ -45,7 +45,7 @@ const HotelPage = () => {
             </div>
            
             <div>
-                <Modal setHotel={hotel} text={'Book now'} />
+                <Modal idHotel={hotel} text={'Book now'} />
             </div>
         </div>
     )

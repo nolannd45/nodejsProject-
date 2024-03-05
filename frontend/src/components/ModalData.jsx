@@ -3,22 +3,29 @@ import { motion } from "framer-motion";
 import { FiX } from "react-icons/fi";
 import { API } from "../utils/API";
 import { Link, useNavigate } from "react-router-dom";
-
-const ModalData = ({ setShowModal, setHotel}) => {
-    console.log(setHotel);
-  const [nameHotel, setNameHotel] = useState("");
+import { Alert } from "@mui/material";
+const ModalData = ({ setShowModal, idHotel }) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-
+  console.log(idHotel);
   const [popup, setPopup] = useState();
   const navigate = useNavigate();
 
   function load() {
-    log(nameHotel, startDate, endDate);
+    log(idHotel, startDate, endDate);
   }
 
-  async function log(nameHotel, startDate, endDate) {
-    let result = await API.createTicket(nameHotel, startDate, startDate);
+  async function log(idHotel, startDate, endDate) {
+    let result = await API.createTicket(idHotel, startDate, endDate);
+    console.log("Result : " + result);
+
+    if (result==undefined) {
+      setPopup(result);
+    } else {
+      //   navigate("/");
+      //   navigate(0);
+      console.log("errorResult");
+    }
   }
 
   return (
@@ -55,20 +62,32 @@ const ModalData = ({ setShowModal, setHotel}) => {
                 }}
                 className="max-w-xl m-4 text-left"
               >
+                {popup ? <Alert severity="error">{popup}</Alert> : ""}
+
                 <div className="">
                   <div className="mt-6 mb-6">
+                    <label className="text-start " htmlFor="startDate">
+                      Date d'arrivée
+                    </label>
                     <input
                       type="date"
                       name="startDate"
                       id="startDate"
+                      value={startDate}
+                      onChange={(e) => setStartDate(e.target.value)}
                       className="w-full px-5 py-2 border dark:border-secondary-dark rounded-md text-md bg-secondary-light dark:bg-ternary-dark text-primary-dark dark:text-ternary-light"
                     />
                   </div>
                   <div className="mt-6 mb-6">
+                    <label className="text-start " htmlFor="EndDate">
+                      Date de départ
+                    </label>
                     <input
                       type="date"
                       name="EndDate"
                       id="EndDate"
+                      value={endDate}
+                      onChange={(e) => setEndDate(e.target.value)}
                       className="w-full px-5 py-2 border dark:border-secondary-dark rounded-md text-md bg-secondary-light dark:bg-ternary-dark text-primary-dark dark:text-ternary-light"
                     />
                   </div>
@@ -91,7 +110,7 @@ const ModalData = ({ setShowModal, setHotel}) => {
 											focus:ring-1 focus:ring-indigo-900 duration-500"
                     aria-label="Submit Request"
                   >
-                    <button>Valider la réservation</button>
+                    <button onClick={load} >Valider la réservation</button>
                   </span>
                 </div>
               </form>

@@ -27,12 +27,17 @@ export class API {
   //TICKET
 
   static async createTicket(nameHotel, dateStart, dateEnd) {
-    console.log(nameHotel + " " + dateStart + " " + dateEnd);
+    const token = localStorage.getItem("token");
+    const info = {
+      nameHotel: nameHotel,
+      dateStart: dateStart,
+      dateEnd: dateEnd,
+    };
     try {
       await axios.post(`${BASE_URL_TICKET}/create`, {
-        nameHotel: nameHotel,
-        dateStart: dateStart,
-        dateEnd: dateEnd,
+        method: "POST",
+        body: info,
+        headers: { Authorization: `Bearer ${token}` },
       });
     } catch (error) {
       console.log(error.response);

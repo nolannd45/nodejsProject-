@@ -3,7 +3,7 @@ import ModalData from './ModalData';
 
 
 
-const Modal = ({ text, setHotel }) => {
+const Modal = ({ text, idHotel }) => {
     const [showModal, setShowModal] = useState(false);
 
     const ModalBtn = ({ text }) => {
@@ -24,7 +24,7 @@ const Modal = ({ text, setHotel }) => {
                 {showModal &&
                     <div className='flex items-center justify-center right-0'>
 
-                        <ModalData setHotel={setHotel} setShowModal={setShowModal} />
+                        <ModalData idHotel={idHotel} setShowModal={setShowModal} />
                     </div>
                 }
 

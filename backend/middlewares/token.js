@@ -1,9 +1,14 @@
 
 import jwt from "jsonwebtoken";
 
+
+
 const token = async (req, res, next) => {
-    const jwttest = req.cookies.token;
-    if (!jwttest) {
+
+  
+  const jwttest = req.headers.authorization.split(' ')[1];
+  console.log(jwttest)
+  if (!jwttest) {
       return res.status(401).send('Accès non autorisé');
     }
     try {
@@ -17,4 +22,3 @@ const token = async (req, res, next) => {
   };
   
   export default token;
-  
