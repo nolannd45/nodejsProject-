@@ -8,7 +8,7 @@ import {
 
 export class API {
   static async fetchById(id) {
-    const response = await axios.get(`${BASE_URL_HOTEL}this/${id}`);
+    const response = await axios.get(`${BASE_URL_HOTEL}/this/${id}`);
     console.log(response);
     return response.data;
   }
@@ -49,9 +49,21 @@ export class API {
     }
   }
 
-  static async fetchTicket() {
-    const response = await axios.get(`${BASE_URL_TICKET}/myTickets`);
-    return response.data;
+  static async fetchTickets() {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(`${BASE_URL_TICKET}/myTickets`, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json"},
+      });
+      var tickets = await response.json()
+      console.log(tickets)
+      return tickets
+      
+    } catch (error) {
+      console.log(error.response);
+      return error.response;
+    }
   }
 
   static async deleteHotel(hotel) {

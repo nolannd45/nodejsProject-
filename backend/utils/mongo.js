@@ -6,7 +6,7 @@ export async function connect(){
     await mongoose.connect(
       "mongodb+srv://nolannd45:nolannd45@projethotel.ojehqtb.mongodb.net/?retryWrites=true&w=majority&appName=ProjetHotel"
     );
-    console.log("connecté à la base de donnée");
+    console.log("Connecté à la base de données");
   } catch (error) {
     console.log(error);
   }

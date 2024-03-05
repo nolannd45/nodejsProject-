@@ -32,7 +32,6 @@ const Login = () => {
     }
   }
 
-  // isLoading || (!isLoading && authUser) ? 'Loading...' :
   return (
     <>
       <section className="h-full">
@@ -48,7 +47,6 @@ const Login = () => {
               />
             </div>
 
-            {/* <!-- Right column container with form --> */}
             <div className="md:w-8/12 lg:ml-6 lg:w-5/12">
               <form onSubmit={(e) => e.preventDefault()}>
                 {popup ? <Alert severity="error">{popup}</Alert> : ""}
