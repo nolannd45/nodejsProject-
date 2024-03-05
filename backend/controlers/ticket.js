@@ -13,13 +13,13 @@ const listTicket = async (req, res) => {
   };
 
   export async function createTicket(req, res) {
-    const { nameHotel, dateStart, dateEnd } = req.body;
+    const { idHotel, dateStart, dateEnd } = req.body;
     var today = new Date()
     var tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
 
     const schema = yup.object().shape({
-        nameHotel: yup.string().required("Le nom de l'hotel est obligatoire"),
+        idHotel: yup.string().required("besoin d'un id"),
         dateStart: yup.date().min(today,`la date requise est celle d'aujourd'hui : ${today}`).required("Une date de debut pour votre reservation est obligatoire"),
         dateEnd: yup.date().min(tomorrow,`il faut au moins une nuit pour reserver une chambre`).required("Une date de fin pour votre reservation est obligatoire"),
     });
@@ -30,13 +30,12 @@ const listTicket = async (req, res) => {
         return res.status(400).send(error.errors.join(', '));
     }
 
-    const checkIfExist = await Hotel.findOne({ name: nameHotel });
+    const checkIfExist = await Hotel.findOne({ _id: idHotel });
     const idUser = req.user.id
     var today = new Date()
 
     if (checkIfExist) {
         try {
-            var idHotel = checkIfExist.id
             const checkIfReserv = await Ticket.findOne({ id: idHotel, dateStart: dateStart, dateEnd: dateEnd });
             console.log(checkIfReserv)
             if (!checkIfReserv) {
