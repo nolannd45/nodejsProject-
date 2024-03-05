@@ -17,14 +17,10 @@ const ModalData = ({ setShowModal, idHotel }) => {
 
   async function log(idHotel, startDate, endDate) {
     let result = await API.createTicket(idHotel, startDate, endDate);
-    console.log("Result : " + result);
-
-    if (result==undefined) {
-      setPopup(result);
+    if (!result.ok) {
+      setPopup(result.statusText);
     } else {
-      //   navigate("/");
-      //   navigate(0);
-      console.log("errorResult");
+      setShowModal(false)
     }
   }
 
@@ -47,9 +43,6 @@ const ModalData = ({ setShowModal, idHotel }) => {
                 - Choisissez une date et réservez votre hôtel -
               </h5>
               <button
-                onClick={() => {
-                  setShowModal(false);
-                }}
                 className="px-4 font-bold text-primary-dark dark:text-primary-light"
               >
                 <FiX className="text-3xl" />
@@ -95,9 +88,6 @@ const ModalData = ({ setShowModal, idHotel }) => {
 
                 <div className="mt-6 pb-4 sm:pb-1 cursor-pointer">
                   <span
-                    onClick={() => {
-                      setShowModal(false);
-                    }}
                     type="submit"
                     className="px-4
 											sm:px-6

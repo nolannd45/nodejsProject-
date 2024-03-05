@@ -14,6 +14,7 @@ const listTicket = async (req, res) => {
 
   export async function createTicket(req, res) {
     const { idHotel, dateStart, dateEnd } = req.body;
+    console.log(req.body)
     var today = new Date()
     var tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
@@ -37,7 +38,6 @@ const listTicket = async (req, res) => {
     if (checkIfExist) {
         try {
             const checkIfReserv = await Ticket.findOne({ id: idHotel, dateStart: dateStart, dateEnd: dateEnd });
-            console.log(checkIfReserv)
             if (!checkIfReserv) {
                 const newTicket = new Ticket({ idHotel, idUser, dateStart, dateEnd });
                 const savedTicket = await newTicket.save();
