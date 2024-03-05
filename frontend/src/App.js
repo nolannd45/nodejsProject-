@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import Header from './components/Header'
 import MainHome from './components/MainHome'
+import MyBook from './components/MyBook'
 import HotelPage from './components/HotelPage'
 import UseScrollToTop from './components/useScrollToTop'
 import { useAuth } from './utils/API'
@@ -19,6 +20,7 @@ const App = () => {
         <ToastContainer />
         <Routes>
           <Route path='/' element={<MainHome />} />
+          <Route path='/mybook' element={<MyBook />} />
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/hotels/:hotel' element={<HotelPage />} />

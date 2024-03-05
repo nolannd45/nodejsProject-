@@ -35,9 +35,9 @@ const Header = () => {
                 <Link to={'/'} className='hover:text-gray-400 duration-100'>Akkor Hotel ltd</Link>
             </div>
             <div className='text-xl '>
-                <Link to={'/contact'} className='mx-2 hover:scale-105 hover:text-slate-400'>Contact</Link>
+                <Link to={'/mybook'} className='mx-2 hover:scale-105 hover:text-slate-400'>My Booking</Link>
                 <select className='bg-black text-white font-semibold rounded-full p-3 cursor-pointer ' onChange={(e) => { setProfileBtnValue(e.target.value) }}>Profile
-                    <option value="profile" className='cursor-pointer text-2xl'>Profile</option>
+                    <option to={'/profile'} value="profile" className='cursor-pointer text-2xl'>Profile</option>
                     <option value="logout" className='cursor-pointer text-2xl' onClick={deco}>Logout</option>
                 </select>
 
