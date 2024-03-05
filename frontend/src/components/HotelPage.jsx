@@ -6,6 +6,7 @@ import HotelImages from './HotelImages';
 import Modal from './Modal';
 
 const HotelPage = () => {
+    
     const { hotel } = useParams();
     const [data, setData] = useState([]);
     const url = `http://localhost:3001/hotel/this/${hotel}`;
@@ -44,7 +45,7 @@ const HotelPage = () => {
             </div>
            
             <div>
-                <Modal text={'Book now'} />
+                <Modal setHotel={hotel} text={'Book now'} />
             </div>
         </div>
     )

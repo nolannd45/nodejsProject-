@@ -1,8 +1,26 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FiX } from "react-icons/fi";
+import { API } from "../utils/API";
+import { Link, useNavigate } from "react-router-dom";
 
-const ModalData = ({ setShowModal }) => {
+const ModalData = ({ setShowModal, setHotel}) => {
+    console.log(setHotel);
+  const [nameHotel, setNameHotel] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const [popup, setPopup] = useState();
+  const navigate = useNavigate();
+
+  function load() {
+    log(nameHotel, startDate, endDate);
+  }
+
+  async function log(nameHotel, startDate, endDate) {
+    let result = await API.createTicket(nameHotel, startDate, startDate);
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
