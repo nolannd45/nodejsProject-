@@ -5,7 +5,7 @@ import Hotel from "../models/hotel.js";
 const listTicket = async (req, res) => {
     try {
         const tickets = await Ticket.find({ idUser: req.user.id });
-        res.status(201).send(tickets);
+        res.status(200).send(tickets);
     } catch (error) {
       console.log(error);
       res.sendStatus(500);

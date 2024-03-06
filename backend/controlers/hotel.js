@@ -57,7 +57,7 @@ export async function delHotel(req, res){
 export async function readHotel (req, res){
     try {
       const hotels = await Hotel.find({});
-      res.status(201).send(hotels);
+      res.status(200).send(hotels);
     } catch (error) {
       console.log(error);
       res.sendStatus(500);
@@ -68,7 +68,7 @@ export async function readHotelId(req, res){
   try {
     const hotels = await Hotel.findById(req.params.id);
     if (hotels){
-      res.status(201).send(hotels);
+      res.status(200).send(hotels);
     }else {res.status(409).send('l hotel n\'existe pas ou plus.')}
     
   } catch (error) {
@@ -113,7 +113,7 @@ export async function updateHotel(req, res){
 export async function readHotelSorted (req, res){
   try {
     const hotels = await Hotel.find().sort({name : 1});
-    res.status(201).send(hotels);
+    res.status(200).send(hotels);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);

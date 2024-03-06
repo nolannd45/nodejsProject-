@@ -72,7 +72,7 @@ const createUser = async (req, res) => {
     try {
       if (req.user.role == "employee" || req.user.role == "admin"){
         const users = await User.find({});
-        res.status(201).send(users);
+        res.status(200).send(users);
       }
       else{
         res.status(403).send('vous ne disposez pas d\'un role pouvant executer cette action');
@@ -87,7 +87,7 @@ const createUser = async (req, res) => {
     try {
       const users = await User.findById(req.params.id);
       if (users){
-        res.status(201).send(users);
+        res.status(200).send(users);
       }else {res.status(409).send('l utilisateur n\'existe pas ou plus.')}
       
     } catch (error) {

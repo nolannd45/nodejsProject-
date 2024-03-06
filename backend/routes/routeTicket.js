@@ -10,6 +10,5 @@ const routeTicket = express.Router();
 routeTicket.get("/myTickets",token ,listTicket);//need connexion
 routeTicket.delete("/delete/:id",token ,delTicket);//need connexion
 routeTicket.post("/create",token ,createTicket);//need connexion
-routeTicket.post("/validate/:id",token);//need connexion
 
 export default routeTicket;

@@ -1,5 +1,4 @@
 import { model, Schema } from "mongoose";
-import { bool } from "yup";
 
 const ticketSchema = new Schema(
   {
