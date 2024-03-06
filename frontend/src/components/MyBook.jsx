@@ -3,12 +3,12 @@ import { API } from "../utils/API";
 import CardBook from "./CardBook";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
-
-
+import { useNavigate } from "react-router-dom";
 const MyBook = () => {
   const [data, setData] = useState([]);
   var [hotels, setHotels] = useState([]);
-
+  var ticketId;
+  const navigate = useNavigate();
   async function load() {
     await log();
   }
@@ -26,12 +26,20 @@ const MyBook = () => {
 
     for (var tickets in result) {
       var hotel = await API.fetchById(result[tickets].idHotel);
-      hotel["dateStart"]=dayjs(result[tickets].dateStart).format("MM/DD/YYYY")
-      hotel["dateEnd"]=dayjs(result[tickets].dateEnd).format("MM/DD/YYYY")
+      hotel["dateStart"] = dayjs(result[tickets].dateStart).format(
+        "MM/DD/YYYY"
+      );
+      hotel["dateEnd"] = dayjs(result[tickets].dateEnd).format("MM/DD/YYYY");
+      hotel["ticketId"] = result[tickets]._id;
       hotels.push(hotel);
-      console.log(hotels)
+      console.log(hotels);
       setHotels(hotels);
     }
+  }
+
+  async function deleteTicket(ticketId) {
+    var result = await API.deleteTicket(ticketId);
+    navigate(0);
   }
 
   return (
@@ -44,13 +52,27 @@ const MyBook = () => {
         {data &&
           data?.map((item) => {
             return (
-            <Link
-                key={item?._id}
-                className="bg-purple-600 rounded-md hover:scale-105 duration-200"
-                to={`/hotels/${item?._id}`}
-              >
-            <CardBook hotelName={item?.name} img={item?.picture_list[0]} dateStart={item?.dateStart} dateEnd={item?.dateEnd} />
-            </Link>)
+              <div>
+                <Link
+                  key={item?._id}
+                  className="bg-purple-600 rounded-md hover:scale-105 duration-200"
+                  to={`/hotels/${item?._id}`}
+                >
+                  <CardBook
+                    hotelName={item?.name}
+                    img={item?.picture_list[0]}
+                    dateStart={item?.dateStart}
+                    dateEnd={item?.dateEnd}
+                  />
+                </Link>
+                <button
+                  className="bg-black text-white font-semibold rounded-full p-3 cursor-pointer "
+                  onClick={() => deleteTicket(item?.ticketId)}
+                >
+                  Supprimer
+                </button>
+              </div>
+            );
           })}
       </div>
     </>

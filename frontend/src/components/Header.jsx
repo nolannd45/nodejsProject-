@@ -35,14 +35,12 @@ const Header = () => {
                 <Link to={'/'} className='hover:text-gray-400 duration-100'>Akkor Hotel ltd</Link>
             </div>
             <div className='text-xl '>
-                <Link to={'/mybook'} className='mx-2 hover:scale-105 hover:text-slate-400'>My Booking</Link>
-                <select className='bg-black text-white font-semibold rounded-full p-3 cursor-pointer ' onChange={(e) => { setProfileBtnValue(e.target.value) }}>Profile
-                    <option to={'/profile'} value="profile" className='cursor-pointer text-2xl'>Profile</option>
-                    <option value="logout" className='cursor-pointer text-2xl' onClick={deco}>Logout</option>
+                <Link to={'/mybook'} className='mx-2 hover:scale-105 hover:text-slate-400'>Mes réservations</Link>
+                <select className='bg-black text-white font-semibold rounded-full p-3 cursor-pointer ' onChange={(e) => { setProfileBtnValue(e.target.value) }}>
+                    <option to={'/login'} value="profile" className='cursor-pointer text-2xl'>Connection</option>
+                    <option value="logout" className='cursor-pointer text-2xl' onClick={deco}>Déconnexion</option>
                 </select>
 
-
-                {/* <button onClick={toggleNav}>Toggle</button> */}
             </div>
         </header>
     )
