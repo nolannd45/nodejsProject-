@@ -10,6 +10,7 @@ export async function connect(){
   } catch (error) {
     console.log(error);
   }
+
 };
 
 export async function disconnect(){
