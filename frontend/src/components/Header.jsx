@@ -2,11 +2,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { API } from "../utils/API.js";
 
 const Header = () => {
-    const [profileBtnValue, setProfileBtnValue] = useState('');
+    const [token, setToken] = useState(localStorage.getItem('token'));
+    const [user, setUser] = useState('');
 
-    console.log(profileBtnValue);
     const navigate = useNavigate();
 
     function deco(){
@@ -14,19 +15,22 @@ const Header = () => {
         window.location.reload(false);
     
       }
-
-    useEffect(() => {
-        try {
-            if (profileBtnValue === 'logout') {
-                navigate('/login')
-                toast.success('Successfully logged out')
-            }
-        } catch (error) {
-            console.error(error);
+      async function loadUser(id){
+        if (user){
+            const aa = await API.userById(id)
+            setUser(aa.data)
         }
+        
+      }
+    
+    useEffect(() => {
+        setToken(localStorage.getItem('token'))
+        setUser(JSON.parse(localStorage.getItem('user')))
+        loadUser(user?.userId)
+
 
         // eslint-disable-next-line
-    }, [profileBtnValue])
+    }, [])
 
 
     return (
@@ -35,11 +39,18 @@ const Header = () => {
                 <Link to={'/'} className='hover:text-gray-400 duration-100'>Akkor Hotel ltd</Link>
             </div>
             <div className='text-xl '>
+                
                 <Link to={'/mybook'} className='mx-2 hover:scale-105 hover:text-slate-400'>Mes réservations</Link>
-                <select className='bg-black text-white font-semibold rounded-full p-3 cursor-pointer ' onChange={(e) => { setProfileBtnValue(e.target.value) }}>
-                    <option to={'/login'} value="profile" className='cursor-pointer text-2xl'>Connection</option>
-                    <option value="logout" className='cursor-pointer text-2xl' onClick={deco}>Déconnexion</option>
-                </select>
+                {token ? 
+                <button className='bg-black text-white font-semibold rounded-full p-3 cursor-pointer '>
+                    <Link value="logout" className='cursor-pointer text-2xl' onClick={deco}>Déconnexion</Link>
+                </button>
+                : 
+                <button  className='bg-black text-white font-semibold rounded-full p-3 cursor-pointer ' >
+                    <Link to={'/login'} value="profile" className='cursor-pointer text-2xl'>Connection</Link>
+                </button>
+               }
+                
 
             </div>
         </header>

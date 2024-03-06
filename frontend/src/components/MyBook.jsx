@@ -32,13 +32,13 @@ const MyBook = () => {
       hotel["dateEnd"] = dayjs(result[tickets].dateEnd).format("MM/DD/YYYY");
       hotel["ticketId"] = result[tickets]._id;
       hotels.push(hotel);
-      console.log(hotels);
+      
       setHotels(hotels);
     }
   }
 
   async function deleteTicket(ticketId) {
-    var result = await API.deleteTicket(ticketId);
+    await API.deleteTicket(ticketId);
     navigate(0);
   }
 

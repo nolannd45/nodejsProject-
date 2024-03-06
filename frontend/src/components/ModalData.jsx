@@ -7,7 +7,6 @@ import { Alert } from "@mui/material";
 const ModalData = ({ setShowModal, idHotel }) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  console.log(idHotel);
   const [popup, setPopup] = useState();
   const navigate = useNavigate();
 
@@ -18,9 +17,10 @@ const ModalData = ({ setShowModal, idHotel }) => {
   async function log(idHotel, startDate, endDate) {
     let result = await API.createTicket(idHotel, startDate, endDate);
     if (!result.ok) {
-      setPopup(result.statusText);
+      setPopup(result);
     } else {
       setShowModal(false)
+      navigate("/mybook")
     }
   }
 

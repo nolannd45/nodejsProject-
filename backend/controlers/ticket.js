@@ -21,7 +21,7 @@ const listTicket = async (req, res) => {
 
     const schema = yup.object().shape({
         idHotel: yup.string().required("besoin d'un id"),
-        dateStart: yup.date().min(today,`la date requise est celle d'aujourd'hui : ${today}`).required("Une date de debut pour votre reservation est obligatoire"),
+        dateStart: yup.date().min(today,`la date requise est celle d'aujourd'hui : ${today.toDateString()}`).required("Une date de debut pour votre reservation est obligatoire"),
         dateEnd: yup.date().min(tomorrow,`il faut au moins une nuit pour reserver une chambre`).required("Une date de fin pour votre reservation est obligatoire"),
     });
     try {

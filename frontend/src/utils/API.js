@@ -9,13 +9,11 @@ import {
 export class API {
   static async fetchById(id) {
     const response = await axios.get(`${BASE_URL_HOTEL}/this/${id}`);
-    console.log(response);
     return response.data;
   }
 
   static async fetchAllHotel() {
     const response = await axios.get(`${BASE_URL_HOTEL}/read`);
-    console.log(response);
     return response.data;
   }
 
@@ -28,25 +26,31 @@ export class API {
 
   static async createTicket(idHotel, startDate, endDate) {
     const token = localStorage.getItem("token");
+    let test
     const info = {
       idHotel: idHotel,
       dateStart: startDate,
       dateEnd: endDate,
     };
-    console.log(info)
-    try {
-      const response = await fetch(`${BASE_URL_TICKET}/create`, {
+      await fetch(`${BASE_URL_TICKET}/create`, {
         method: "POST",
         body: JSON.stringify(info),
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json"},
-      });
-      console.log(response)
-      return response
-    } catch (error) {
-      console.log("test")
-      console.log(error.response);
-      return error.response;
-    }
+      })
+      
+      .then((responseJson) => {
+        test = responseJson
+      })
+      .catch(err => {
+        console.log('caught it!',err);
+     });
+     if (test.ok){
+      return test
+     }
+     else {
+      await test.text().then(text => test = text)
+      return test
+     }
   }
 
   static async fetchTickets() {
@@ -57,7 +61,6 @@ export class API {
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json"},
       });
       var tickets = await response.json()
-      console.log(tickets)
       return tickets
       
     } catch (error) {
@@ -69,7 +72,6 @@ export class API {
   static async deleteHotel(hotel) {
     const token = localStorage.getItem("token");
     var vid = { hotel: hotel };
-    console.log(vid);
     const response = await fetch(`${BASE_URL_HOTEL}/delete/${hotel.id}`, {
       method: "DELETE",
       body: JSON.stringify(vid),
@@ -125,7 +127,6 @@ export class API {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(response);
     return response.data;
   }
 

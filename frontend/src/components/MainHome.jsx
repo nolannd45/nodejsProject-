@@ -10,7 +10,7 @@ const MainHome = () => {
     const getData = async () => {
       const res = await fetch(url);
       const result = await res.json();
-      console.log(result);
+      
       setData(result);
     };
     getData();
