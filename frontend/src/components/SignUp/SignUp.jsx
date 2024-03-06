@@ -73,7 +73,8 @@ const Signup = () => {
 
             {/* <!-- Right column container with form --> */}
             <div className="md:w-8/12 lg:ml-6 lg:w-5/12 text-white">
-            {popup ? <Alert severity="error">{popup}</Alert> : ""}
+              <div>{popup ? <Alert id="error" severity="error">{popup}</Alert> : ""}aa</div>
+            
               <form onSubmit={(e) => e.preventDefault()}>
                 {/* <!-- Name input --> */}
                 <div className="relative mb-6" data-te-input-wrapper-init>
@@ -106,7 +107,6 @@ const Signup = () => {
                     id="email"
                     placeholder="Email address"
                     required
-                    minLength={2}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -124,7 +124,6 @@ const Signup = () => {
                         type="password"
                         id="password"
                         placeholder="Password"
-                        minLength={8}
                         required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -139,7 +138,6 @@ const Signup = () => {
                         type="password"
                         id="cPassword"
                         placeholder="Confirm Password"
-                        minLength={8}
                         required
                         value={cPassword}
                         onChange={(e) => setCPassword(e.target.value)}
@@ -169,6 +167,7 @@ const Signup = () => {
                 </div>
                 {/* <!-- Submit button --> */}
                 <button
+                  id="sign-up"
                   className="inline-block w-full rounded bg-blue-600 px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-blue-500 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-blue-500 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                   onClick={load}
                 >

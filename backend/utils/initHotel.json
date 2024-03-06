@@ -1,0 +1,22 @@
+[
+    {
+        "_id": "65e4cbd12d34b38342b18af9",
+        "name": "issouHotel",
+        "location": "Paris",
+        "description": "meilleur hotel du monde",
+        "picture_list": ["hotel1", "test3"],
+        "createdAt": "2024-03-04T13:00:02.003Z",
+        "updatedAt": "2024-03-04T16:43:23.215Z",
+        "__v": 0
+    },
+    {
+        "_id": "65e5041e2dbbdc5ea66a1299",
+        "name": "uwuHotel",
+        "location": "Paris",
+        "description": "meilleur hotel du monde",
+        "picture_list": ["hotel2", "test3"],
+        "createdAt": "2024-03-04T15:13:34.769Z",
+        "updatedAt": "2024-03-04T16:44:01.921Z",
+        "__v": 0
+    }
+]

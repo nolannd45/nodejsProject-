@@ -12,12 +12,11 @@ import routeHotel from "./routes/routeHotel.js";
 import routeTicket from "./routes/routeTicket.js";
 
 import {login,logout} from "./controlers/login.js";
-import mongoose from 'mongoose';
+
 
 // DB CONNECTION
-if (!mongoose.connection.readyState) {
-  connect()
-}
+connect()
+
 const app = express()
 
 app.use(cors({

@@ -14,7 +14,6 @@ const listTicket = async (req, res) => {
 
   export async function createTicket(req, res) {
     const { idHotel, dateStart, dateEnd } = req.body;
-    console.log(req.body)
     var today = new Date()
     var tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
@@ -58,6 +57,7 @@ const delTicket = async (req, res) => {
     try {
       if (req.user.role == "admin" || req.params.id == req.user.id){
         const removed = await Ticket.findByIdAndRemove(req.params.id);
+        console.log(removed)
         if (!removed) {
           res.sendStatus(404);
           return;

@@ -9,7 +9,6 @@ const createUser = async (req, res) => {
       password: yup.string().required()
     });
     let check = await schema.isValid(req.body)
-    console.log(check)
 
     try {
       if (check){
