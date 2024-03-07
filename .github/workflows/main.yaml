@@ -28,23 +28,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Navigate to backend directory
-      run: cd backend
-
-    - name: Print current directory
-      run: pwd
-
-    - name: List files in current directory
-      run: ls
-
     - name: Install dependencies
-      run: npm i
+      run: cd backend & npm i
 
     - name: Build
-      run: npm run build
+      run: cd backend & npm run build
 
     - name: Run tests
-      run: npm test
+      run: cd backend & npm test
 
     - name: Deploy the solution
       run: echo "Deployment step"
