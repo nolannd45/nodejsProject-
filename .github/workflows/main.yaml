@@ -4,10 +4,14 @@ on:
     branches:
     - main
     - master
+    paths:
+    - 'backend/**' # Spécifie le chemin vers le dossier backend
   pull_request:
     branches:
     - main
     - master
+    paths:
+    - 'backend/**' # Spécifie le chemin vers le dossier backend
 
 jobs:
   build:
