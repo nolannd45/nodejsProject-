@@ -106,7 +106,7 @@ export class API {
       return error.response.data;
     }
   }
-
+//a
   static async register(pseudo, email, password) {
     console.log(pseudo + " " + email + " " + password);
     try {
