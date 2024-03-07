@@ -100,9 +100,9 @@ const createUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const schema = yup.object().shape({
-    email: yup.string().email().required(),
-    pseudo: yup.string().required(),
-    password: yup.string().required(),
+    email: yup.string().email(),
+    pseudo: yup.string(),
+    password: yup.string(),
     role: yup.string().matches(/(^admin$|^user$|^employee$)/),
   });
   let check = await schema.isValid(req.body)
