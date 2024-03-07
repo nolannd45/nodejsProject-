@@ -63,7 +63,7 @@ jobs:
         run: cd frontend && npm install
 
       - name: Start frontend app
-        run: cd frontend && npm run ci
+        run: cd frontend && npm run ci &
 
       - name: Deploy frontend
         run: echo "Deploying frontend"
