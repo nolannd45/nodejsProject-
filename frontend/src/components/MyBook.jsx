@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 const MyBook = () => {
   const [data, setData] = useState([]);
   var [hotels, setHotels] = useState([]);
-  var ticketId;
   const navigate = useNavigate();
   async function load() {
     await log();

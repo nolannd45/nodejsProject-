@@ -1,14 +1,11 @@
 
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 import { API } from "../utils/API.js";
 
 const Header = () => {
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [user, setUser] = useState('');
-
-    const navigate = useNavigate();
 
     function deco(){
         localStorage.clear()

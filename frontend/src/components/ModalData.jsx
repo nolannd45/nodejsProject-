@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FiX } from "react-icons/fi";
 import { API } from "../utils/API";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
 const ModalData = ({ setShowModal, idHotel }) => {
   const [startDate, setStartDate] = useState("");

@@ -1,42 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FcGoogle } from "react-icons/fc";
 import { API } from "../../utils/API.js";
-import * as Yup from "yup";
 import {
   Alert,
-  Box,
-  Checkbox,
-  FormControlLabel,
-  IconButton,
-  InputAdornment,
-  Stack,
-  TextField,
 } from "@mui/material";
 
 const Signup = () => {
   const navigate = useNavigate();
 
   const [pseudo, setpseudo] = useState("");
-  const [lName, setlName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
 
   const [popup, setPopup] = useState();
-
-  const SignupSchema = Yup.object().shape({
-    pseudo: Yup.string()
-      .min(2, "Too Short!")
-      .max(50, "Too Long!")
-      .required("First name required"),
-    email: Yup.string()
-      .email("Email must be a valid email address")
-      .required("Email is required"),
-    password: Yup.string().required("Password is required"),
-  });
 
   function load(){
     if (password === cPassword){

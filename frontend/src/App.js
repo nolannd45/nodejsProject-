@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+
+import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import MainHome from './components/MainHome'
 import MyBook from './components/MyBook'
 import HotelPage from './components/HotelPage'
 import UseScrollToTop from './components/useScrollToTop'
-import { useAuth } from './utils/API'
+
 import Login from './components/Login/Login'
 import { ToastContainer } from 'react-toastify'
 import SignUp from './components/SignUp/SignUp'

@@ -1,19 +1,7 @@
-import { func } from "prop-types";
 import React from "react";
-import { API } from "../utils/API";
-import { Link, useNavigate } from "react-router-dom";
 
-const CardBook = ({ img, hotelName, dateStart, dateEnd, ticketId }) => {
-  const navigate = useNavigate();
+const CardBook = ({ img, hotelName, dateStart, dateEnd }) => {
 
-//   function deleteTicket() {
-//     load(ticketId);
-//   }
-
-//   async function load(ticketId) {
-//     var result = await API.deleteTicket(ticketId);
-//     // navigate("/");
-//   }
 
   return (
     <div className="md:w-80 md:h-80 w-32 h-32 flex flex-col" title={hotelName}>
@@ -30,12 +18,6 @@ const CardBook = ({ img, hotelName, dateStart, dateEnd, ticketId }) => {
       <span className="p-4 text-lg text-black font-semibold ">
         {dateStart} - {dateEnd}
       </span>
-      {/* <button
-        className="bg-black text-white font-semibold rounded-full p-3 cursor-pointer "
-        onClick={deleteTicket(ticketId)}
-      >
-        Supprimer
-      </button> */}
     </div>
   );
 };

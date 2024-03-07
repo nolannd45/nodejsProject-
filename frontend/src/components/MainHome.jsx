@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 const MainHome = () => {
   const [data, setData] = useState([]);
-  const url = `http://localhost:3001/hotel/read`;
+
 
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch(url);
+      const res = await fetch(`http://localhost:3001/hotel/read`);
       const result = await res.json();
       
       setData(result);
