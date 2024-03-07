@@ -14,27 +14,31 @@ describe("Test E2E de l'application", function () {
   });
 
   // Teste la connexion avec succès
-  it("devrait se connecter avec succès", async function () {
+  it("devrait reserver avec succès", async function () {
+
     await driver.get("http://localhost:3000/login");
     await driver.findElement(By.id("pseudo")).sendKeys("nolannd");
     await driver.findElement(By.id("password")).sendKeys("nolannd");
     await driver.findElement(By.id("connexion")).click();
-    const listHotels = await driver.findElements(By.tagName('a'));
-    await listHotels[0].click();
+
+    await driver.sleep(1000);
+
     await driver.get("http://localhost:3000/hotels/65e5041e3dbbdc5ea66a1237");
-    await driver.findElement(By.xpath(`//*[@id="reserver"]`)).click();
 
-    await sleep(2000);
+    // Cliquer sur le bouton "Réserver"
+    await driver.findElement(By.id("reserver")).click();
 
-    await driver.findElement(By.xpath(`//*[@id="startDate"]`)).sendKeys("2024-03-27T00:00:00.000+00:00");
-    await driver.findElement(By.xpath(`//*[@id="EndDate"]`)).sendKeys("2024-03-29T00:00:00.000+00:00");
-    await driver.findElement(By.xpath(`//*[@id="valider"]`)).click();
+    // Remplir les champs de dates de réservation
+    const startDateField = await driver.findElement(By.id("startDate"));
+    startDateField.sendKeys("2025-03-27");
+    const endDateField = await driver.findElement(By.id("EndDate"));
+    endDateField.sendKeys("2025-03-27");
+
+    // Cliquer sur le bouton "Valider"
+    await driver.findElement(By.id("valider")).click();
+
+    // Attendre que la page soit chargée après la réservation
+    await driver.wait(until.urlContains("/mybook"), 5000);
   });
 
-  // Teste la reservation
-  // it("devrait selectionner et reserver un hôtel", async function () {
-  //   await driver.get("http://localhost:3000");
-  //   c
-
-  // });
 });
