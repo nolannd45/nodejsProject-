@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { API } from "../../utils/API.js";
 import { Alert } from "@mui/material";
-// import Loader from './Loader/Loader';
 
 const Login = () => {
   const [pseudo, setPseudo] = useState("");
