@@ -34,4 +34,4 @@ jobs:
       run: npm test
 
     - name: Deploy the solution
-        run: echo "Deployment step"
+      run: echo "Deployment step"
