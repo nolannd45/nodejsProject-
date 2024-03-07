@@ -16,7 +16,7 @@ describe('Test E2E de l\'application', function() {
     after(async function() {
         await driver.quit();
     });
-//on verif si la page est la bonne a
+//on verif si la page est la bonne
     it('devrait charger la page d\'accueil', async function() {
         await driver.get('http://localhost:3000'); // Modifier l'URL en fonction de votre application
         const pageTitle = await driver.getTitle();
