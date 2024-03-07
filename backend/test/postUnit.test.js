@@ -7,21 +7,41 @@ import * as loginController from '../controlers/login.js';
 describe('User Controller', () => {
   describe('createUser', () => {
     it('should login', async () => {
-        const req = {
-          body: {
-            pseudo: 'nolannd',
-            password: 'nolannd'
-          }
-        };
-        const res = {
-          status: sinon.stub().returnsThis(),
-          send: sinon.stub()
-        };
-  
-        await loginController.login(req, res);
-  
-        expect(res.status.calledWith(200)).to.be.true;
-      });
+      const req = {
+        body: {
+          pseudo: 'nolannd',
+          password: 'nolannd'
+        }
+      };
+      const res = {
+        status: sinon.stub().returnsThis(),
+        send: sinon.stub(),
+        cookie: sinon.stub(),
+        json: sinon.stub()
+      };
+
+      await loginController.login(req, res);
+
+      expect(res.status.calledWith(200)).to.be.true;
+    });
+    it('should not login', async () => {
+      const req = {
+        body: {
+          pseudo: 'aa',
+          password: 'aa'
+        }
+      };
+      const res = {
+        status: sinon.stub().returnsThis(),
+        send: sinon.stub(),
+        cookie: sinon.stub(),
+        json: sinon.stub()
+      };
+
+      await loginController.login(req, res);
+
+      expect(res.status.calledWith(404)).to.be.true;
+    });
 
 
     it('should create a new user', async () => {
