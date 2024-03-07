@@ -64,16 +64,7 @@ jobs:
 
       - name: Start frontend app
         run: |
-          cd frontend
-          npm start & 
-
-      - name: Wait for app to start
-        run: sleep 10s
-
-      - name: Run frontend tests
-        run: |
-          cd frontend
-          npm test
+          cd frontend && npm start && npm test 
 
       - name: Stop Application
         run: |
