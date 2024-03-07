@@ -11,7 +11,7 @@ const login = async (req, res) => {
       return res.status(404).send('Veuillez fournir un nom d\'utilisateur et un mot de passe');
     }
 
-    // Vérifier les informations d'identification de l'utilisateur dans la base de données
+    // Vérifier les informations d'identification de l'utilisateur dans la base de données a
     const user = await User.findOne({ pseudo });
     if (!user) {
       return res.status(404).send('L\'utilisateur souhaité n\'existe pas');
