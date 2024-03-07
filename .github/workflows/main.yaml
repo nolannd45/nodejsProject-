@@ -58,31 +58,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      
-      - name: Install Google Chrome
-        run: |
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo dpkg -i google-chrome-stable_current_amd64.deb
-          sudo apt-get -f install -y  # Pour résoudre les éventuelles dépendances manquantes
-          rm google-chrome-stable_current_amd64.deb
-
+    
       - name: Install frontend dependencies
         run: cd frontend && npm install
 
-      - name: Start frontend app
-        run: |
-          cd frontend && nohup npm start & 
-
-      - name: Wait for app to start
-        run: sleep 10s
-
       - name: Run frontend tests
-        run: |
-          cd frontend && npm test
-
-      - name: Stop Application
-        run: |
-          pkill -f "npm start" || true 
+        run: cd frontend && npm test
 
       - name: Deploy frontend
         run: echo "Deploying frontend"

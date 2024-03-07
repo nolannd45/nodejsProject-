@@ -14,5 +14,4 @@ describe('MainHome Component', () => {
     expect(mainTitle).toBeInTheDocument();
   });
 
-  // Ajoutez d'autres tests ici en fonction de vos besoins
 });
