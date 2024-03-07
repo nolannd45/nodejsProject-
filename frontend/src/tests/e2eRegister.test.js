@@ -7,7 +7,7 @@ describe('Test E2E de l\'application', function() {
     let driver;
 
     before(async function() {
-        driver = await new Builder().forBrowser('chrome').build();
+        driver = await new Builder().forBrowser('chromium-browser').build();
     });
 
     after(async function() {
