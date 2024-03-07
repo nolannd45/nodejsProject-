@@ -22,7 +22,6 @@ describe('Test de la méthode DELETE', () => {
 
       sinon.assert.calledWith(findByIdAndRemoveStub, resource._id);
 
-      // Restaurer le stub après le test
       findByIdAndRemoveStub.restore();
   });
 });
