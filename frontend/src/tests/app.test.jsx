@@ -1,7 +1,6 @@
 import Header from "../components/Header"
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import axios from "axios";
 
 test('Ceci est mon premier test', () => {
   render(
