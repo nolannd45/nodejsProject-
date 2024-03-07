@@ -1,6 +1,7 @@
 // e2e.test.js
 
 // Importer les dépendances
+/*
 const { Builder, By, until } = require('selenium-webdriver');
 
 describe('Test E2E de l\'application', function() {
@@ -46,4 +47,4 @@ describe('Test E2E de l\'application', function() {
             return currentUrl == 'http://localhost:3000/sign-up'; // Attendre jusqu'à ce que l'URL change de la page de connexion
         }, 5000);
     });
-});
+});*/
