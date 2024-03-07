@@ -42,7 +42,7 @@ export async function delHotel(req, res){
         res.sendStatus(404);
         return;
       }
-      await Ticket.find( { "reservation": removed.name } ).deleteMany();
+      await Ticket.find( { "idHotel": removed.idHotel } ).deleteMany();
       res.status(200).send(removed);
     } catch (error) {
       if (error.kind && error.kind === "ObjectId") {

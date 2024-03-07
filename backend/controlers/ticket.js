@@ -5,6 +5,7 @@ import Hotel from "../models/hotel.js";
 export async function listTicket (req, res) {
     try {
         const tickets = await Ticket.find({ idUser: req.user.id });
+        console.log(tickets)
         res.status(200).send(tickets);
     } catch (error) {
       console.log(error);
@@ -54,14 +55,20 @@ export async function listTicket (req, res) {
 };
 
 const delTicket = async (req, res) => {
+  console.log('test1')
     try {
       if (req.user.role == "admin" || req.params.id == req.user.id){
+        console.log('test2')
         const removed = await Ticket.findByIdAndRemove(req.params.id);
+        console.log('test3')
+        console.log(removed)
         if (!removed) {
           res.sendStatus(404);
           return;
         }
+        console.log('test4')
         res.status(200).send(removed);
+        console.log('test5')
     }
     else{
       res.status(403).send('Vous ne disposez pas des droits pour supprimer ce ticket');

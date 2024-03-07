@@ -30,7 +30,7 @@ describe("POST /", function() {
   it("Create User => code 201", function(done) {  
       supertest(app)
         .post("/user/create")
-        .send({"email": "test@test2.fr", "pseudo": "test2", "password": "test"})
+        .send({"email": "tes3t@test3.fr", "pseudo": "test3", "password": "test3"})
         .expect(201)
         .end(function(err, res){
           if (err) done(err);
