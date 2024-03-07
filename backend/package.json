@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon start",
-    "test": "mocha ./test/*.test.js ",
+    "test": "mocha ./test/*.test.js --exit",
     "build": "swc src -d dist --source-maps --copy-files"
   },
   "author": "",

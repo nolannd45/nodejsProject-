@@ -15,7 +15,7 @@ import {login,logout} from "./controlers/login.js";
 
 
 // DB CONNECTION
-connect()
+await connect()
 
 const app = express()
 
