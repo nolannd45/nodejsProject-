@@ -31,7 +31,7 @@ export async function createHotel(req, res) {
       }
     } else {res.status(409).send('l hotel existe deja')};
   }else{
-    res.status(403).send('Vous ne disposez pas des droits pour modifier cette personne');
+    res.status(403).send('Vous ne disposez pas des droits pour modifier cet hôtel');
   }
 };
 

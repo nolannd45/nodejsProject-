@@ -1,395 +1,321 @@
-openapi: 3.0.3
+openapi: 3.0.0
 info:
-  title: "projet nodejs"
-  description: "appli gestion transport"
-  contact:
-    email: apiteam@swagger.io
-  version: 1.0.11
- 
-tags:
-  - name: login
-    description: Everything about your login
-  - name: User
-    description: Everything about your user
-  - name: Gare
-    description: Everything about your gare
-  - name: Train
-    description: Everything about your train
+  title: 4CIT
+  version: 1.0.0
+  description: |-
+    Akkor Hotel ltd est une société qui vise à  offrir la meilleure expérience pour réserver un hôtel partout dans le monde. Ce système backend évolutif et efficace peut être intégré à n'importe quelle interface frontale.
 
-    
+        Les Identifiants seront visibles lors du READ des entités
 paths:
+  /hotel/read:
+    get:
+      summary: Récupérer tous les hotels
+      tags:
+        - Hôtel
+      responses:
+        '200':
+          description: Retourne la liste d'hotel'
+        '500':
+          description: Erreur Serveur
+          
+  /hotel/this/{id}:
+    get:
+      summary: Récupérer un hôtel
+      tags:
+        - Hôtel
+      parameters:
+        - in: path
+          name: id
+          description: ID de l'hôtel à récupérer
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Retourne l'hôtel
+        '409':
+          description: L'hôtel n'existe pas ou plus
+        '500':
+          description: Erreur Serveur
+          
+  /hotel/create:
+    post:
+      summary: Créer un hotel => Besoin d'être connecté en admin 
+      tags:
+        - Hôtel
+      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+             type: object
+             properties:
+              name:
+                type: string
+                description: Nom de l'hôtel
+              location:
+                type: string
+                description: Localisation de l'hôtel
+              description:
+                type: string
+                description: Description de l'hôtel
+              picture_list:
+               type: object
+               description: Nom des images
+      
+      responses:
+        '201':
+          description: L'hôtel a été créé.
+        '400':
+          description: Vous avez un problème avec un de vos attributs. Veuillez les verifier
+        '409':
+          description: L'hôtel existe déjà
+        '403':
+          description: Vous ne disposez pas des droits pour modifier cet hôtel
+
+  /hotel/update/{id}:
+    put:
+      summary: Mettre à jour un hôtel => Besoin d'être connecté en admin
+      tags:
+        - Hôtel
+      parameters:
+        - in: path
+          name: id
+          description: ID de l'hôtel à mettre à jour
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+             type: object
+             properties:
+              name:
+                type: string
+                description: Nom de l'hôtel
+              location:
+                type: string
+                description: Localisation de l'hôtel
+              description:
+                type: string
+                description: Description de l'hôtel
+              picture_list:
+               type: object
+               description: Nom des images
+      responses:
+        '200':
+          description: Hôtel mis à jour avec succès
+        '400':
+          description: Vous avez un problème avec un de vos attributs. Veuillez les verifier
+        '404':
+          description: Not found
+        '500':
+          description: Erreur Serveur
+  /hotel/delete/{id}:
+    delete:
+      summary: Supprimer un hôtel => Besoin d'être connecté en admin
+      tags:
+        - Hôtel
+      parameters:
+        - in: path
+          name: id
+          description: ID de l'hôtel à supprimer
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Retourne le média supprimé
+        '404':
+          description: Hôtel non trouvé
+        '500':
+          description: Erreur Serveur
+          
+  /user/read:
+    get:
+      summary: Récupérer tous les users => Besoin d'être connecté en employee
+      tags:
+        - User
+      responses:
+        '200':
+          description: Retourne la liste de user
+  /user/create:
+    post:
+      summary: Créer un utilisateur
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                 type: string
+                 description: Mail de l'utilisateur
+                pseudo:
+                 type: string
+                 description: Pseudo de l'utilisateur
+                password:
+                 type: string
+                 description: Mot de passe de l'utilisateur
+                role:
+                  type: string
+                  description: Admin ou employee /user -> par défaut User
+      responses:
+        '201':
+          description: Créé avec succès
+        '404':
+          description: Vos informations entrées sont incorrectes
+  
   /login:
     post:
+      summary: Authentifier un utilisateur
       tags:
-        - "login"
-      description: ""
-      operationId: "login"
-      responses: 
-        "200": 
-          description: "connexion réussie"
-        "400": 
-          description: "Veuillez fournir un nom d'utilisateur et un mot de passe ou Mot de passe incorrect ou L'utilisateur souhaité n'existe pas"
-        "500": 
-          description: "erreur serveur"
-  
-  /createUser:
-    post:
-      tags:
-        - "User"
+        - Login
       requestBody:
-        description: Create a user
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
-        required: true
-      description: "creation utilisateur"
-      operationId: "createUser"
-      responses: 
-        "201": 
-          description: "utilisateur crée"
-        "409":
-          description: "l'email est deja pris ou le pseudo est deja pris"
-        "404": 
-          description: "Vous avez un problème avec un de vos attributs. Veuillez verifier que vous avez bien un email et que le role est bien parmis les roles proposés"
-        "500": 
-          description: "erreur serveur"
+              type: object
+              properties:
+                pseudo:
+                 type: string
+                 description: Pseudo de l'utilisateur
+                password:
+                 type: string
+                 description: Mot de passe de l'utilisateur
+      responses:
+        '200':
+          description: Authentification réussie
+        '400':
+          description: Mot de passe incorrect / Utilisateur inexistant / en attente du nom d'utilisateur et du mot de passe
           
-  /deleteUser/{id}:
+  /user/update/{id}:
+    put:
+      summary: Mettre à jour son user => Besoin d'être connecté ou admin
+      tags:
+        - User
+      parameters:
+        - in: path
+          name: id
+          description: ID du user à mettre à jour
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+             type: object
+             properties:
+                email:
+                 type: string
+                 description: Mail de l'utilisateur
+                pseudo:
+                 type: string
+                 description: Pseudo de l'utilisateur
+                password:
+                 type: string
+                 description: Mot de passe de l'utilisateur
+      responses:
+        '200':
+          description: user mis à jour avec succès
+        '403':
+          description: Vous ne disposez pas des droits pour modifier cette personne
+        '404':
+          description: user non trouvé        
+  /user/delete/{id}:
     delete:
+      summary: Supprimer son  user => Besoin d'être connecté ou admin
       tags:
-        - "User"
-      description: "supp un utilisateur"
-      operationId: "delUser"
+        - User
       parameters:
-      - name: id
-        in: "path"
-        schema:
-          type: integer
-        description: "l'id de l'utilisateur à supprimer"
-        required: true
-      responses: 
-        "200": 
-          description: "utilisateur supprimé"
-        "403": 
-          description: "Vous ne disposez pas des droits pour modifier cette personne"
-        "500": 
-          description: "erreur serveur"
+        - in: path
+          name: id
+          description: ID du user à supprimer
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: User supprimé avec succès
+        '403':
+          description: Vous ne disposez pas des droits pour supprimer cette personne
+        '404':
+          description: User non trouvé
           
-  /readUser:
-    post:
-      tags:
-        - "User"
-      description: "lecture des utilisateurs"
-      operationId: "readUser"
-      responses: 
-        "201": 
-          description: "read reussie"
-        "403": 
-          description: "vous ne disposez pas d'un role pouvant executer cette action"
-        "500": 
-          description: "erreur serveur"
           
-  /updateUser/{id}:
-    post:
+  /ticket/myTickets:
+    get:
+      summary: Récupérer tous les tickets de l'utilisateur => Besoin d'être connecté
       tags:
-        - "User"
+        - Ticket
+      responses:
+        '200':
+          description: Retourne la liste de ticket'
+        '500':
+          description: Erreur Serveur
+         
+         
+  /ticket/create:
+    post:
+      summary: Créer un Ticket => Besoin d'être connecté
+      tags:
+        - Ticket
       requestBody:
-        description: update a user
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
-        required: true
-      description: "modification utilisateur"
-      operationId: "updateUser"
-      parameters:
-      - name: id
-        in: path
-        schema:
-          type: integer
-        description: "id updateuser"
-        required: true
-      responses: 
-        "200": 
-          description: "update OK"
-        "403": 
-          description: "Vous ne disposez pas des droits pour modifier cette personne"
-        "404":
-          description: "not found"
-        "500": 
-          description: "erreur serveur"
+              type: object
+              properties:
+                idUser:
+                 type: string
+                 description: Id de l'utilisateur
+                idHotel:
+                 type: string
+                 description: Id de l'hotel
+                dateStart:
+                 type: string
+                 description: Date du début de la réservation
+                dateEnd:
+                  type: string
+                  description: Date de fin de la réservation
+      responses:
+        '201':
+          description: Créé avec succès
+        '400':
+          description: Retourne l'erreur spécifique 
+        '409':
+          description: l'hotel n'existe pas ou la chambre est déjà reservé
+        '500':
+          description: Erreur serveur
           
-  /createTrain:
-    post:
-      tags:
-        - "Train"
-      requestBody:
-        description: Create a train
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Train'
-        required: true
-      description: "creation de trains"
-      operationId: "createTrain"
-      responses: 
-        "201": 
-          description: train
-        "403":
-          description: "Vous ne disposez pas des droits pour modifier cette personne ou Vous avez un problème avec un de vos attributs. Veuillez les verifier ou le train existe deja ou la date est depassée"
-        "500": 
-          description: "erreur serveur"
-          
-  /deleteTrain/{id}:
+  /ticket/delete/{id}:
     delete:
+      summary: Supprimer un Ticket => Besoin d'être connecté
       tags:
-        - "Train"
-      description: "supp un train"
-      operationId: "deleteTrain"
+        - Ticket
       parameters:
-      - name: id
-        in: "path"
-        schema:
-          type: integer
-        description: "l'id du train à supprimer"
-        required: true
-      responses: 
-        "201": 
-          description: "connexion réussie"
-        "403": 
-          description: "Vous ne disposez pas des droits pour modifier cette personne"
-        "500": 
-          description: "erreur serveur"
-          
-  /readTrain:
-    post:
-      tags:
-        - "Train"
-      description: "lecture des trains"
-      operationId: "readTrain"
-      responses: 
-        "201": 
-          description: "connexion réussie"
-        "500": 
-          description: "erreur serveur"
-          
-  /readTrain/{limit}:
-    post:
-      tags:
-        - "Train"
-      description: "lecture des trains"
-      parameters:
-      - name: limit
-        in: "path"
-        schema:
-          type: integer
-        description: "limite souhaitée"
-        required: true
-      responses: 
-        "201": 
-          description: "connexion réussie"
-        "500": 
-          description: "erreur serveur"
-          
-  /updateTrain/{id}:
-    post:
-      tags:
-        - "Train"
-      requestBody:
-        description: update a train
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Train'
-        required: true
-      description: "modification train"
-      operationId: "updateTrain"
-      parameters:
-      - name: id
-        in: path
-        schema:
-          type: integer
-        description: "id updateTrain"
-        required: true
-      responses: 
-        "201": 
-          description: "connexion réussie"
-        "403":
-          description: "Vous ne disposez pas des droits pour modifier cette personne"
-        "500": 
-          description: "erreur serveur"
-          
-  /createGare:
-    post:
-      tags:
-        - "Gare"
-      requestBody:
-        description: Create a gare
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Gare'
-        required: true
-      description: "creation de gares"
-      operationId: "createGare"
-      responses: 
-        "201": 
-          description: gare
-        "403":
-          description: "Vous avez un problème avec un de vos attributs. Veuillez les verifier ou la gare existe deja"
-        "500": 
-          description: "erreur serveur"
-          
-  /deleteGare/{id}:
-    delete:
-      tags:
-        - "Gare"
-      description: "supp un gare"
-      operationId: "deleteGare"
-      parameters:
-      - name: id
-        in: "path"
-        schema:
-          type: integer
-        description: "l'id de la gare à supprimer"
-        required: true
-      responses: 
-        "201": 
-          description: "connexion réussie"
-        "403": 
-          description: ""
-        "500": 
-          description: "erreur serveur"
-          
-  /readGare:
-    post:
-      tags:
-        - "Gare"
-      description: "lecture des gares"
-      operationId: "readGare"
-      responses: 
-        "201": 
-          description: "connexion réussie"
-        "500": 
-          description: "erreur serveur"
-          
-  /readGareSorted:
-    post:
-      tags:
-        - "Gare"
-      description: "lecture triée des gare"
-      responses: 
-        "201": 
-          description: "connexion réussie"
-        "500": 
-          description: "erreur serveur"
-          
-  /updateGare/{id}:
-    post:
-      tags:
-        - "Gare"
-      requestBody:
-        description: update des gares
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Gare'
-        required: true
-      description: "modification gare"
-      operationId: "updateGare"
-      parameters:
-      - name: id
-        in: path
-        schema:
-          type: integer
-        description: "id updateGare"
-        required: true
-      responses: 
-        "201": 
-          description: "connexion réussie"
-        "403":
-          description: ""
-        "500": 
-          description: "erreur serveur"
-
-components:
-  schemas:
-    Gare:
-      required:
-        - namegare
-        - open_hour
-        - close_hour
-        - image
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 
-        namegare:
-          type: string
-          example: "Tours37"
-        open_hour:
-          type: string
-          example: "6h"
-          description: "ouverture de la gare"
-        close_hour: 
-          type: string
-          example: "22h"
-          description: "fermeture de la gare"
-        image:
-          type: string
-          description: "image base 64"
-    Train:
-      required:
-        - nametrain
-        - start_station
-        - end_station
-        - time_of_departure
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 
-        nametrain:
-          type: string
-          example: "train37"
-          description: "nom du train"
-        start_station:
-          type: string
-          example: "station 1"
-          description: "station depart du train"
-        end_station: 
-          type: string
-          example: "station 2"
-          description: "station fin du trajet"
-        time_of_departure:
-          type: string
-          example: "8h"
-          description: "heure de depart"
-    User:
-      required:
-        - email
-        - pseudo
-        - password
-        - role
-      type: object
-      properties:
-        id:
-          type: integer
-          example:
-        pseudo:
-          type: string
-          example: "toto37"
-        email:
-          type: string
-          example: "toto@gmail.com"
-          description: "mail de l'etudiant"
-        password: 
-          type: string
-          example: "toto37"
-          description: "mdp de l'etudiant"
-        role:
-          type: string
-          example: "admin / user / employee"
-          description: ""
+        - in: path
+          name: id
+          description: ID du ticket à supprimer
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ticket supprimé avec succès
+        '403':
+          description: Vous ne disposez pas des droits pour supprimer ce ticket
+        '404':
+          description: Ticket non trouvé
+        '500':
+          description: Erreur Serveur
