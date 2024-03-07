@@ -68,8 +68,7 @@ jobs:
          CI: ""
 
       - name: Start frontend app
-        run: npm start &
-        background: true
+        run: cd frontend && npm start
 
       - name: Wait for app to start
         run: sleep 30s
