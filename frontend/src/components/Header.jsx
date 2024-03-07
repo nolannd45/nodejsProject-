@@ -44,7 +44,7 @@ const Header = () => {
                 </button>
                 : 
                 <button  className='bg-black text-white font-semibold rounded-full p-3 cursor-pointer ' >
-                    <Link to={'/login'} value="profile" className='cursor-pointer text-2xl'>Connection</Link>
+                    <Link to={'/login'} value="profile" className='cursor-pointer text-2xl'>Connexion</Link>
                 </button>
                }
                 
