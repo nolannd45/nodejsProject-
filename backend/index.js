@@ -14,7 +14,7 @@ import routeTicket from "./routes/routeTicket.js";
 import {login,logout} from "./controlers/login.js";
 
 
-// DB CONNECTION
+// DB CONNEC
 await connect()
 
 const app = express()
