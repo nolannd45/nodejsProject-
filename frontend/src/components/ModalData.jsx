@@ -100,7 +100,7 @@ const ModalData = ({ setShowModal, idHotel }) => {
 											focus:ring-1 focus:ring-indigo-900 duration-500"
                     aria-label="Submit Request"
                   >
-                    <button onClick={load} >Valider la réservation</button>
+                    <button id="valider" onClick={load} >Valider la réservation</button>
                   </span>
                 </div>
               </form>

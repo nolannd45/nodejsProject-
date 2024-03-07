@@ -27,6 +27,7 @@ const MainHome = () => {
           data.map((item) => {
             return (
               <Link
+                id="hotel"
                 key={item?._id}
                 className="bg-purple-600 rounded-md hover:scale-105 duration-200"
                 to={`/hotels/${item?._id}`}
