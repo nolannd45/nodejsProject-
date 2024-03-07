@@ -1,6 +1,6 @@
 import supertest from "supertest";
 import {app} from "../index.js";
-
+// test POST
 describe("POST /", function() {
   it("Login => code 200", function(done) {
     supertest(app)
