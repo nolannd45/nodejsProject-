@@ -28,7 +28,7 @@ const login = async (req, res) => {
       id: user._id,
       pseudo: user.pseudo,
       role: user.role
-    }, 'config', { expiresIn: '1d' });
+    }, 'config', { expiresIn: '1y' });
     res.cookie('token', token);
 
 

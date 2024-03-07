@@ -8,6 +8,7 @@ const createUser = async (req, res) => {
       pseudo: yup.string().required(),
       password: yup.string().required()
     });
+
     let check = await schema.isValid(req.body)
 
     try {
