@@ -24,6 +24,13 @@ npm start
 ```
 L'API sera accessible au travers de l'url http://localhost:3001 
 
+## Démarrage test Backend
+Pour démarrer les tests : 
+
+```bash
+npm test
+```
+
 ## Installation Frontend
 
 Après avoir ouvert le projet, il vous faudra vous déplacer dans le répertoire frontend :
@@ -44,7 +51,28 @@ Une fois les dépendances installées, vous pouvez démarrer l'application en ut
 ```bash
 npm start
 ```
+
 Cela demarrera l'application localement et vous pourrez y accéder dans votre navigateur à l'adresse http://localhost:3000.
+
+## Démarrage test Frontend
+Pour démarrer les tests : 
+
+```bash
+npm test
+```
+
+## Démarrage test Frontend e2e
+Pour démarrer les tests e2e : 
+il faut : 
+- demarrer le backend (voir plus haut)
+- demarrer le frontend (voir plus haut)
+
+```bash
+npm run test-e2e
+```
+
+
+
 
 ## Swagger
 
