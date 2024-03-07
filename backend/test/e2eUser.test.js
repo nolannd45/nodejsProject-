@@ -22,7 +22,7 @@ describe('Test E2E de l\'application', function() {
         const pageTitle = await driver.getTitle();
         expect(pageTitle).to.equal('Hotel-react');
     });
-
+//on test les inputs
     it('devrait se connecter avec succès', async function() {
         await driver.get('http://localhost:3000/login'); // Modifier l'URL en fonction de votre application
         await driver.findElement(By.id('pseudo')).sendKeys('nolannd');
