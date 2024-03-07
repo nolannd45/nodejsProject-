@@ -128,7 +128,7 @@ paths:
             type: string
       responses:
         '200':
-          description: Retourne le média supprimé
+          description: Retourne l'hôtel supprimé
         '404':
           description: Hôtel non trouvé
         '500':
