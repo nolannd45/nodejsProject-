@@ -30,6 +30,7 @@ const ModalData = ({ setShowModal, idHotel }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="font-general-medium fixed inset-0 z-30 transition-all duration-500 "
+      id="modal"
     >
       {/* Modal Backdrop */}
       <div className="bg-filter bg-opacity-50 fixed inset-0 w-full h-full z-20 bg-gray-400"></div>

@@ -29,7 +29,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "set CI='' && react-scripts build",
-    "test": "vitest",
+    "test": "vitest", 
+    "test-e2e": "mocha ./src/tests/testE2E/*.test.js ",
     "eject": "react-scripts eject",
     "e2e-tests": "cypress run",
     "stop": "kill $(lsof -t -i:3000)",
