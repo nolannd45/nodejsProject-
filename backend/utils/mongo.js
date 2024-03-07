@@ -11,7 +11,7 @@ export async function connect(){
     await mongoose.connect('mongodb+srv://nolannd45:nolannd45@projethotel.ojehqtb.mongodb.net/?retryWrites=true&w=majority&appName=ProjetHotel', { useNewUrlParser: true, useUnifiedTopology: true });
     console.log('Connecté à la base de données MongoDB');
 
-    // Supprimer toutes les données existantes de la collection
+    // Supprimer toutes les données existantes de la colle
     await user.deleteMany({});
     await ticket.deleteMany({});
     await hotel.deleteMany({});

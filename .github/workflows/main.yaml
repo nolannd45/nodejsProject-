@@ -67,6 +67,13 @@ jobs:
         env:
          CI: ""
 
+      - name: Start frontend app
+        run: npm start &
+        background: true
+
+      - name: Wait for app to start
+        run: sleep 30s
+
       - name: Run frontend tests
         run: cd frontend && npm test
 
