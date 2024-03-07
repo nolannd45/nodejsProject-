@@ -4,7 +4,6 @@
 const { Builder, By, until } = require('selenium-webdriver');
 
 describe('Test E2E de l\'application', function() {
-    this.timeout(10000);
     let driver;
 
     before(async function() {
@@ -23,8 +22,8 @@ describe('Test E2E de l\'application', function() {
 //on test les inputs
     it('devrait s enregistrer avec succès', async function() {
         await driver.get('http://localhost:3000/sign-up'); 
-        await driver.findElement(By.id('pseudo')).sendKeys('test');
-        await driver.findElement(By.id('email')).sendKeys('test@test.com');
+        await driver.findElement(By.id('pseudo')).sendKeys('test1');
+        await driver.findElement(By.id('email')).sendKeys('test1@test.com');
         await driver.findElement(By.id('password')).sendKeys('test');
         await driver.findElement(By.id('cPassword')).sendKeys('test');
         await driver.findElement(By.id('sign-up')).click();
@@ -34,7 +33,7 @@ describe('Test E2E de l\'application', function() {
         }, 5000);
 
     });
-//on test tous les inputss
+//on test tous les inputs
     it('ne devrait pas devrait s enregistrer', async function() {
         await driver.get('http://localhost:3000/sign-up'); 
         await driver.findElement(By.id('pseudo')).sendKeys('test2');
