@@ -71,10 +71,13 @@ jobs:
         run: cd frontend && npm start &
 
       - name: Wait for app to start
-        run: sleep 30s
+        run: sleep 10s
 
       - name: Run frontend tests
         run: cd frontend && npm test
+
+      - name: Stop Application
+        run: cd frontend && npm stop || true
 
       - name: Deploy frontend
         run: echo "Deploying frontend"

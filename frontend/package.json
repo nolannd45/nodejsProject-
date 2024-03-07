@@ -29,7 +29,9 @@
     "start": "react-scripts start",
     "build": "set CI='' && react-scripts build",
     "test": "mocha ./src/tests/*.test.js ",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "e2e-tests": "cypress run",
+    "stop": "kill $(lsof -t -i:3000)"
   },
   "eslintConfig": {
     "extends": [
