@@ -103,14 +103,19 @@ const updateUser = async (req, res) => {
     email: yup.string().email(),
     pseudo: yup.string(),
     password: yup.string(),
-    role: yup.string().matches(/(^admin$|^user$|^employee$)/),
   });
   let check = await schema.isValid(req.body)
   try {
+
     if (check){
+
+
       if (req.user.role == "admin" || req.params.id == req.user.id){
-        const { email, pseudo, password, role } = req.body;
+   
+
+        const { email, pseudo, password } = req.body;
         if (req.user.role != "admin" && (role == "admin" || role == "employee")){
+          
           res.status(403).send('Seul un admin peut vous donner les droits de devenir employee ou admin');
         } else{
           const saltRounds = 10;
