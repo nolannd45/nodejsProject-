@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
 import { API } from "../utils/API";
 import CardBook from "./CardBook";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+
 const MyBook = () => {
-  const [data, setData] = useState([]);
-  var [hotels, setHotels] = useState([]);
+  const [data, setData] = useState(null);
+  const hotels = useRef([]);
   const navigate = useNavigate();
+
   async function load() {
     await log();
   }
@@ -15,24 +17,19 @@ const MyBook = () => {
   useEffect(() => {
     const getData = async () => {
       await load();
-      setData(hotels);
+      setData(hotels.current);
     };
     getData();
-  }, []);
+  }, [load]);
 
   async function log() {
     let result = await API.fetchTickets();
-
     for (var tickets in result) {
       var hotel = await API.fetchById(result[tickets].idHotel);
-      hotel["dateStart"] = dayjs(result[tickets].dateStart).format(
-        "MM/DD/YYYY"
-      );
+      hotel["dateStart"] = dayjs(result[tickets].dateStart).format("MM/DD/YYYY");
       hotel["dateEnd"] = dayjs(result[tickets].dateEnd).format("MM/DD/YYYY");
       hotel["ticketId"] = result[tickets]._id;
-      hotels.push(hotel);
-      
-      setHotels(hotels);
+      hotels.current.push(hotel);
     }
   }
 
