@@ -29,7 +29,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "set CI='' && react-scripts build",
-    "test": "vitest --exclude=./src/tests/testE2E/*", 
+    "test": "vitest --bail=false --exclude=./src/tests/testE2E/* ", 
     "test-e2e": "mocha ./src/tests/testE2E/*.test.js",
     "eject": "react-scripts eject",
     "e2e-tests": "cypress run",
