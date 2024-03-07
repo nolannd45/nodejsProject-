@@ -31,6 +31,12 @@ jobs:
     - name: Navigate to backend directory
       run: cd backend
 
+    - name: Print current directory
+      run: pwd
+
+    - name: List files in current directory
+      run: ls
+
     - name: Install dependencies
       run: npm i
 

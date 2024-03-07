@@ -36,7 +36,7 @@ describe('Test E2E de l\'application', function() {
         }, 5000);
 
     });
-//on test les inputs
+//on test tous les inputs
     it('ne devrait pas devrait s enregistrer', async function() {
         await driver.get('http://localhost:3000/sign-up'); 
         await driver.findElement(By.id('pseudo')).sendKeys('test2');
