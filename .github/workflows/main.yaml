@@ -71,7 +71,7 @@ jobs:
 
       - name: Run frontend tests
         run: |
-          cd frontend npm test
+          cd frontend && npm test
 
       - name: Stop Application
         run: |
