@@ -2,7 +2,7 @@ import Ticket from "../models/ticket.js";
 import * as yup from 'yup';
 import Hotel from "../models/hotel.js";
 
-const listTicket = async (req, res) => {
+export async function listTicket (req, res) {
     try {
         const tickets = await Ticket.find({ idUser: req.user.id });
         res.status(200).send(tickets);
@@ -57,7 +57,6 @@ const delTicket = async (req, res) => {
     try {
       if (req.user.role == "admin" || req.params.id == req.user.id){
         const removed = await Ticket.findByIdAndRemove(req.params.id);
-        console.log(removed)
         if (!removed) {
           res.sendStatus(404);
           return;
@@ -80,4 +79,4 @@ const delTicket = async (req, res) => {
 
 
   
-export {listTicket, delTicket};
+export {delTicket};
