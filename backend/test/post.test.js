@@ -18,7 +18,7 @@ describe("POST /", function() {
 
     supertest(app)
       .post("/hotel/create")
-      .set('Authorization', 'Bearer ' + tokenTest) // Adding token to headers
+      .set('Authorization', 'Bearer ' + tokenTest) // Adding token to header
       .send({"name": "Georges V", "location": "Tours", "description": "Cet hôtel est génial", "picture_list": ["hotel1"]})
       .expect(201)
       .end(function(err, res){
