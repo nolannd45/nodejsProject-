@@ -4,14 +4,19 @@ import { useParams } from 'react-router-dom';
 import Apropos from './Apropos';
 import HotelImages from './HotelImages';
 import Modal from './Modal';
+import { API } from '../utils/API';
 
 const HotelPage = () => {
+    const [token, setToken] = useState(localStorage.getItem('token'));
+
     
     const { hotel } = useParams();
     const [data, setData] = useState([]);
     const url = `http://localhost:3001/hotel/this/${hotel}`;
 
     useEffect(() => {
+        setToken(localStorage.getItem('token'))
+        console.log(token)
         const getData = async () => {
             const res = await fetch(url);
             const result = await res.json();
@@ -43,10 +48,14 @@ const HotelPage = () => {
             <div className='my-6'>
                 <Apropos data={data} />
             </div>
-           
-            <div>
+           {token ? 
+           <div>
                 <Modal  idHotel={hotel} text={'Reservez maintenant'} />
             </div>
+            :
+            ""
+           }
+            
         </div>
     )
 }

@@ -55,20 +55,18 @@ export async function listTicket (req, res) {
 };
 
 const delTicket = async (req, res) => {
-  console.log('test1')
+  
     try {
-      if (req.user.role == "admin" || req.params.id == req.user.id){
-        console.log('test2')
+      var ticket = await Ticket.findById(req.params.id)
+      if (req.user.role == "admin" || ticket.idUser == req.user.id){
+        console.log(req.user.id)
         const removed = await Ticket.findByIdAndRemove(req.params.id);
-        console.log('test3')
         console.log(removed)
         if (!removed) {
           res.sendStatus(404);
           return;
         }
-        console.log('test4')
         res.status(200).send(removed);
-        console.log('test5')
     }
     else{
       res.status(403).send('Vous ne disposez pas des droits pour supprimer ce ticket');
